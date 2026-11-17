@@ -4,40 +4,306 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mathematical Derivations</title>
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      max-width: 800px;
-      margin: 60px auto;
-      padding: 0 20px;
-      font-family: system-ui, sans-serif;
-      line-height: 1.8;
+      margin: 0;
       background: #f7f5f0;
       color: #26352c;
+      font-family: system-ui, sans-serif;
     }
-    article {
-      padding: 24px;
-      background: white;
+
+    header {
+      max-width: 1200px;
+      margin: auto;
+      padding: 40px 24px 24px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(26px, 4vw, 40px);
+    }
+
+    header p {
+      margin: 0;
+      color: #667269;
+      line-height: 1.7;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #667269;
+    }
+
+    .legend span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .line-sample {
+      width: 30px;
+      border-top: 2px solid #52715d;
+    }
+
+    .line-sample.dashed {
+      border-top-style: dashed;
+    }
+
+    .viewport {
+      margin: 0 24px 32px;
       border: 1px solid #dedfd6;
-      border-radius: 16px;
+      border-radius: 18px;
+      overflow: auto;
+      background: #fbfaf7;
+    }
+
+    .graph {
+      position: relative;
+      background-image:
+        radial-gradient(#d9ded5 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .connections {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .card {
+      position: absolute;
+      width: 220px;
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+      padding: 18px 22px;
+      border: 1px solid #b9c9bd;
+      border-radius: 14px;
+      background: #fff;
+      color: #26352c;
+      text-decoration: none;
+      box-shadow: 0 4px 14px #26352c08;
+      transition: box-shadow 150ms, border-color 150ms;
+    }
+
+    .card:hover {
+      border-color: #39704e;
+      box-shadow: 0 8px 24px #26352c16;
+    }
+
+    .card:focus-visible {
+      outline: 3px solid #39704e;
+      outline-offset: 4px;
+    }
+
+    .card-type {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #6a7b6d;
+    }
+
+    .card-title {
+      font-size: 19px;
+      font-weight: 650;
+      line-height: 1.3;
+    }
+
+    footer {
+      padding: 0 24px 24px;
+      color: #667269;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 28px 16px 20px;
+      }
+
+      .viewport {
+        margin: 0 12px 24px;
+      }
     }
   </style>
 </head>
-<body>
-  <h1>Mathematical Derivations</h1>
-  <p>
-    Exploring definitions, proofs, and formulas,
-    starting from real numbers and basic operations.
-  </p>
 
-  <article>
-    <h2>Start Here: Real Numbers</h2>
+<body>
+  <header>
+    <h1>Mathematical Derivations</h1>
     <p>
-      This website begins with real numbers and their fundamental
-      properties, gradually building a network of connected
-      mathematical ideas.
+      Explore mathematical ideas and the reasoning that connects them.
+      Select a card to read.
     </p>
-    <p>The first knowledge card is coming soon.</p>
-  </article>
-<p><a href="./cards/sets.html">Sets</a></p>
+
+    <div class="legend">
+      <span>
+        <i class="line-sample" aria-hidden="true"></i>
+        Used in a proof
+      </span>
+      <span>
+        <i class="line-sample dashed" aria-hidden="true"></i>
+        Prerequisite concept
+      </span>
+    </div>
+  </header>
+
+  <main class="viewport" aria-label="Mathematical knowledge map">
+    <div class="graph" id="graph">
+      <svg class="connections" id="connections" aria-hidden="true">
+        <defs>
+          <marker
+            id="arrow"
+            viewBox="0 0 10 10"
+            refX="9"
+            refY="5"
+            markerWidth="7"
+            markerHeight="7"
+            orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 Z" fill="#52715d"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  </main>
+
+  <footer>
+    Arrows point from supporting knowledge to the idea that uses it.
+  </footer>
+
+  <script>
+    // ===== 在这里管理卡片 =====
+    // x：距离画布左边的位置
+    // y：距离画布上边的位置
+    // file：对应正文的文件路径
+
+    const cards = [
+      {
+        id: "sets",
+        title: "Sets",
+        type: "Definition",
+        file: "./cards/sets.html",
+        x: 80,
+        y: 60
+      }
+    ];
+
+    // ===== 在这里管理箭头 =====
+    // from：起点卡片的 id
+    // to：终点卡片的 id
+    // kind："proof" 表示证明依赖，"concept" 表示概念依赖
+
+    const links = [];
+
+    // ===== 以下是绘制程序，平时不用修改 =====
+
+    const graph = document.getElementById("graph");
+    const svg = document.getElementById("connections");
+
+    const cardWidth = 220;
+    const cardHeight = 100;
+
+    const width = Math.max(
+      800,
+      ...cards.map(card => card.x + cardWidth + 80)
+    );
+
+    const height = Math.max(
+      560,
+      ...cards.map(card => card.y + cardHeight + 80)
+    );
+
+    graph.style.width = width + "px";
+    graph.style.height = height + "px";
+
+    svg.setAttribute("width", width);
+    svg.setAttribute("height", height);
+    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+
+    const cardById = new Map(
+      cards.map(card => [card.id, card])
+    );
+
+    // 画箭头：从起点卡片底部连到终点卡片顶部
+    for (const link of links) {
+      const from = cardById.get(link.from);
+      const to = cardById.get(link.to);
+
+      if (!from || !to) continue;
+
+      const x1 = from.x + cardWidth / 2;
+      const y1 = from.y + cardHeight + 4;
+      const x2 = to.x + cardWidth / 2;
+      const y2 = to.y - 6;
+      const middleY = (y1 + y2) / 2;
+
+      const path = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "path"
+      );
+
+      path.setAttribute(
+        "d",
+        `M ${x1} ${y1}
+         C ${x1} ${middleY},
+           ${x2} ${middleY},
+           ${x2} ${y2}`
+      );
+
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke", "#52715d");
+      path.setAttribute("stroke-width", "2");
+      path.setAttribute("marker-end", "url(#arrow)");
+
+      if (link.kind === "concept") {
+        path.setAttribute("stroke-dasharray", "6 5");
+      }
+
+      svg.appendChild(path);
+    }
+
+    // 创建可点击的卡片
+    for (const card of cards) {
+      const element = document.createElement("a");
+      element.className = "card";
+      element.href = card.file;
+      element.style.left = card.x + "px";
+      element.style.top = card.y + "px";
+
+      const type = document.createElement("span");
+      type.className = "card-type";
+      type.textContent = card.type;
+
+      const title = document.createElement("span");
+      title.className = "card-title";
+      title.textContent = card.title;
+
+      const prerequisites = links
+        .filter(link => link.to === card.id)
+        .map(link => cardById.get(link.from)?.title)
+        .filter(Boolean);
+
+      if (prerequisites.length) {
+        element.setAttribute(
+          "aria-label",
+          `${card.title}. Depends on: ${prerequisites.join(", ")}`
+        );
+      }
+
+      element.append(type, title);
+      graph.appendChild(element);
+    }
+  </script>
 </body>
 </html>
