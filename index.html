@@ -185,22 +185,35 @@
     // file：对应正文的文件路径
 
     const cards = [
-      {
-        id: "sets",
-        title: "Sets",
-        type: "Definition",
-        file: "./cards/sets.html",
-        x: 80,
-        y: 60
-      }
-    ];
+  {
+    id: "sets",
+    title: "Sets",
+    type: "Definition",
+    file: "./cards/sets.html",
+    x: 80,
+    y: 60
+  },
+  {
+    id: "set-equality",
+    title: "Set Logic (1)",
+    type: "Definition",
+    file: "./cards/set-equality.html",
+    x: 80,
+    y: 260
+  }
+];
 
     // ===== 在这里管理箭头 =====
     // from：起点卡片的 id
     // to：终点卡片的 id
     // kind："proof" 表示证明依赖，"concept" 表示概念依赖
 
-    const links = [];
+    const links = [
+  {
+    from: "sets",
+    to: "set-equality"
+  }
+];
 
     // ===== 以下是绘制程序，平时不用修改 =====
 
