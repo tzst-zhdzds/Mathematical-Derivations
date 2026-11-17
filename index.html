@@ -147,16 +147,12 @@
       Select a card to read.
     </p>
 
-    <div class="legend">
-      <span>
-        <i class="line-sample" aria-hidden="true"></i>
-        Used in a proof
-      </span>
-      <span>
-        <i class="line-sample dashed" aria-hidden="true"></i>
-        Prerequisite concept
-      </span>
-    </div>
+  <div class="legend">
+  <span>
+    <i class="line-sample" aria-hidden="true"></i>
+    Dependency
+  </span>
+  </div>
   </header>
 
   <main class="viewport" aria-label="Mathematical knowledge map">
@@ -265,10 +261,6 @@
       path.setAttribute("stroke", "#52715d");
       path.setAttribute("stroke-width", "2");
       path.setAttribute("marker-end", "url(#arrow)");
-
-      if (link.kind === "concept") {
-        path.setAttribute("stroke-dasharray", "6 5");
-      }
 
       svg.appendChild(path);
     }
