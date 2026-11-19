@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Power Set</title>
+
+  <style>
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.9;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: 28px;
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+    }
+
+    h1, h2 {
+      line-height: 1.4;
+    }
+
+    a {
+      color: #27634b;
+    }
+
+    .formula {
+      text-align: center;
+      font-size: 20px;
+    }
+
+    summary {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">← back to home page</a>
+  </nav>
+
+  <article>
+    <h1>Power Set</h1>
+
+    <p>
+      Define a set P is the set of all <a href="./subsets.html">subsets</a> of a set A, 
+      called power set of A, written as P(A).
+      Or in other word, for any set B, we have: 
+    </p>
+
+    <p class="formula">B ∈ P(A) ⇔ B ⊆ A</p>
+
+    <h2>How we find all subsets?</h2>
+
+    <p>Assume A = {a, b} , a not equals b, we can list all subsets by amount of elements in the set: </p>
+
+    <ul>
+      <li>0 elements, get ∅; </li>
+      <li>1 elements, get {a} or {b}; </li>
+      <li>2 elements, get {a, b}. </li>
+    </ul>
+
+    <p>These already include all possible subsets for A, so A's power set which is: </p>
+
+    <p class="formula">P(A) = {∅, {a}, {b}, {a, b}}</p>
+
+    <p>
+      Note: {a} is one of A's subset, so {a} ⊆ A.
+      By definition, in P(A), set {a} is one element of P(A), so written as {a} ∈ P(A).
+    </p>
+
+
+    <p>
+      Also, We already prove that <a href="./empty-set.html">empty set is a subset for every set</a>, 
+      And every set is the subset of itself, so we have: 
+    </p>
+
+    <p class="formula">∅ ∈ P(A) , A ∈ P(A).</p>
+
+  </article>
+</body>
+</html>
