@@ -186,6 +186,14 @@
 
     const cards = [
   {
+    id: "de-morgan-difference",
+    title: "De Morgan’s Laws for Set Difference",
+    type: "Corollary",
+    file: "./cards/de-morgan-difference.html",
+    x: 380,
+    y: 660
+  },
+  {
     id: "de-morgan",
     title: "De Morgan’s Laws",
     type: "Theorem",
@@ -241,6 +249,7 @@
     // kind："proof" 表示证明依赖，"concept" 表示概念依赖
 
     const links = [
+  { from: "de-morgan", to: "de-morgan-difference" },
   { from: "set-operations", to: "de-morgan" },
   { from: "set-equality", to: "de-morgan" },
   { from: "sets", to: "set-operations" },
