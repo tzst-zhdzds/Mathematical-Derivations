@@ -208,6 +208,14 @@
   file: "./cards/subsets.html",
   x: 80,
   y: 460
+  },
+  {
+  id: "empty-set",
+  title: "Empty Set",
+  type: "Definition & Proof",
+  file: "./cards/empty-set.html",
+  x: 80,
+  y: 660
   }
 ];
 
@@ -217,14 +225,9 @@
     // kind："proof" 表示证明依赖，"concept" 表示概念依赖
 
     const links = [
-  {
-    from: "sets",
-    to: "set-equality"
-  },
-  {
-  from: "set-equality",
-  to: "subsets"
-  }
+  { from: "sets", to: "set-equality" },
+  { from: "set-equality", to: "subsets" },
+  { from: "subsets", to: "empty-set" }
 ];
 
     // ===== 以下是绘制程序，平时不用修改 =====
