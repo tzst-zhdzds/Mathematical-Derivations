@@ -186,6 +186,14 @@
 
     const cards = [
   {
+    id: "set-operations",
+    title: "Set Operations",
+    type: "Definition",
+    file: "./cards/set-operations.html",
+    x: 380,
+    y: 260
+  },
+  {
     id: "sets",
     title: "Sets",
     type: "Definition",
@@ -225,6 +233,7 @@
     // kind："proof" 表示证明依赖，"concept" 表示概念依赖
 
     const links = [
+  { from: "sets", to: "set-operations" },
   { from: "sets", to: "set-equality" },
   { from: "set-equality", to: "subsets" },
   { from: "subsets", to: "empty-set" }
