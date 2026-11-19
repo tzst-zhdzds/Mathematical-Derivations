@@ -186,6 +186,14 @@
 
     const cards = [
   {
+    id: "de-morgan",
+    title: "De Morgan’s Laws",
+    type: "Theorem",
+    file: "./cards/de-morgan.html",
+    x: 380,
+    y: 460
+  },
+  {
     id: "set-operations",
     title: "Set Operations",
     type: "Definition",
@@ -233,6 +241,8 @@
     // kind："proof" 表示证明依赖，"concept" 表示概念依赖
 
     const links = [
+  { from: "set-operations", to: "de-morgan" },
+  { from: "set-equality", to: "de-morgan" },
   { from: "sets", to: "set-operations" },
   { from: "sets", to: "set-equality" },
   { from: "set-equality", to: "subsets" },
