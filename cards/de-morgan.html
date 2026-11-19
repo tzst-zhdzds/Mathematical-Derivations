@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>De Morgan’s Laws</title>
+
+  <style>
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.9;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: 28px;
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+    }
+
+    h1, h2 {
+      line-height: 1.4;
+    }
+
+    a {
+      color: #27634b;
+    }
+
+    .formula {
+      text-align: center;
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">← back to home page</a>
+  </nav>
+
+  <article>
+    <h1>De Morgan’s Laws</h1>
+
+    <p>Let set A and set B be subsets of a set U. All complements are taken relative to U.</p>
+
+    <h2>The Complement of a Union</h2>
+
+<p class="formula">
+  (A ∪ B)<sup>c</sup> = A<sup>c</sup> ∩ B<sup>c</sup>
+</p>
+
+<p>Proof: Let x be any element of U.</p>
+
+<p>
+  By the definition of
+  <a href="./set-operations.html">complement</a>,
+  x belongs to (A ∪ B)<sup>c</sup> if and only if x does not belong to A ∪ B.
+</p>
+
+<p>
+  The union A ∪ B contains every element that belongs to A, to B, or to both.
+  Therefore, x lies outside A ∪ B if and only if it belongs to neither A nor B.
+</p>
+
+<p>
+  This means that x belongs to both A<sup>c</sup> and B<sup>c</sup>,
+  which is exactly the condition for x to belong to their intersection.
+  Thus, for every x ∈ U,
+</p>
+
+<p class="formula">
+  x ∈ (A ∪ B)<sup>c</sup> ⇔ x ∈ A<sup>c</sup> ∩ B<sup>c</sup>.
+</p>
+
+<p>The symbol ⇔ means “if and only if.” Each side implies the other.</p>
+
+<p>
+  The two sets contain exactly the same elements.
+  By the <a href="./set-equality.html">definition of set equality</a>,
+  they are equal.
+</p>
+
+    <h2>The Complement of an Intersection</h2>
+
+<p class="formula">
+  (A ∩ B)<sup>c</sup> = A<sup>c</sup> ∪ B<sup>c</sup>
+</p>
+
+<p><strong>Proof.</strong> Let x be any element of U.</p>
+
+<p>
+  By the definition of complement, x belongs to (A ∩ B)<sup>c</sup>
+  if and only if x does not belong to A ∩ B.
+</p>
+
+<p>
+  An element belongs to A ∩ B exactly when it belongs to both sets.
+  Therefore, x lies outside the intersection exactly when at least one
+  of the two sets does not contain x.
+</p>
+
+<p>
+  Equivalently, x belongs to A<sup>c</sup>, to B<sup>c</sup>, or to both.
+  This is precisely the condition for x to belong to their union.
+  Thus, for every x ∈ U,
+</p>
+
+<p class="formula">
+  x ∈ (A ∩ B)<sup>c</sup> ⇔ x ∈ A<sup>c</sup> ∪ B<sup>c</sup>.
+</p>
+
+<p>
+  The two sets contain exactly the same elements, so they are equal.
+</p>
+
+  </article>
+</body>
+</html>
