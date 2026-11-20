@@ -186,6 +186,14 @@
 
     const cards = [
   {
+    id: "binary-relations",
+    title: "Binary Relations",
+    type: "Definition",
+    file: "./cards/binary-relations.html",
+    x: 680,
+    y: 660
+  },
+  {
     id: "cartesian-product",
     title: "Ordered Pairs and Cartesian Products",
     type: "Definition",
@@ -265,6 +273,8 @@
     // kind："proof" 表示证明依赖，"concept" 表示概念依赖
 
     const links = [
+  { from: "cartesian-product", to: "binary-relations" },
+  { from: "subsets", to: "binary-relations" },
   { from: "sets", to: "cartesian-product" },
   { from: "empty-set", to: "power-set" },
   { from: "de-morgan", to: "de-morgan-difference" },
