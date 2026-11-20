@@ -186,6 +186,14 @@
 
     const cards = [
   {
+    id: "cartesian-product",
+    title: "Ordered Pairs and Cartesian Products",
+    type: "Definition",
+    file: "./cards/cartesian-product.html",
+    x: 680,
+    y: 260
+  },
+  {
     id: "power-set",
     title: "Power Set",
     type: "Definition",
@@ -257,6 +265,7 @@
     // kind："proof" 表示证明依赖，"concept" 表示概念依赖
 
     const links = [
+  { from: "sets", to: "cartesian-product" },
   { from: "empty-set", to: "power-set" },
   { from: "de-morgan", to: "de-morgan-difference" },
   { from: "set-operations", to: "de-morgan" },
