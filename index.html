@@ -214,6 +214,14 @@
 
     const cards = [
       {
+        id: "equivalence-classes",
+        title: "Equivalence Classes and Partitions",
+        type: "Definition & Proof",
+        file: "./cards/equivalence-classes.html",
+        x: 680,
+        y: 1060
+      },
+      {
         id: "sets",
         title: "Sets",
         type: "Definition",
@@ -307,6 +315,7 @@
     // Each arrow goes from a prerequisite to the card that uses it.
 
     const links = [
+      { from: "properties-of-relations", to: "equivalence-classes" },
       { from: "sets", to: "set-equality" },
       { from: "sets", to: "set-operations" },
       { from: "sets", to: "cartesian-product" },
