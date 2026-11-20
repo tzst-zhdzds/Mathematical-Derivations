@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Equivalence Classes and Partitions</title>
+
+  <style>
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.9;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: 28px;
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: anywhere;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.4;
+    }
+
+    a {
+      color: #27634b;
+    }
+
+    .formula {
+      text-align: center;
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">← Back to home page</a>
+  </nav>
+
+  <article>
+    <h1>Equivalence Classes and Partitions</h1>
+
+    <h2>Equivalence Classes</h2>
+
+    <p>
+      Let R be an
+      <a href="./properties-of-relations.html">equivalence relation</a>
+      on a set A. Pick an element a in A. Which elements of A are
+      related to a?
+    </p>
+
+    <p>
+      The set of all such elements is called the
+      equivalence class of a, written as [a].
+    </p>
+
+    <p class="formula">[a] = {x ∈ A | a R x}</p>
+
+    <p>
+      The vertical bar means "such that". To decide whether x belongs
+      to [a], we check whether a R x.
+    </p>
+
+    <h2>Example</h2>
+
+<p>Let A be the following set of fruit names.</p>
+
+<p class="formula">A = {apple, apricot, banana, blueberry}</p>
+
+<p>
+  For any x and y in A, let x R y mean that x and y start
+  with the same letter.
+</p>
+
+<p>This is an equivalence relation on A.</p>
+
+<ul>
+  <li>
+    Reflexive. Every name starts with the same
+    letter as itself.
+  </li>
+  <li>
+    Symmetric. If x starts with the same letter
+    as y, then y starts with the same letter as x.
+  </li>
+  <li>
+    Transitive. Suppose x R y and y R z.
+    Then x and z both start with the first letter of y, so x R z.
+  </li>
+</ul>
+
+<p>
+  What is [apple]? Start with apple and look for every name in A
+  that begins with the letter "a". We find apple itself and apricot.
+</p>
+
+<p class="formula">[apple] = {apple, apricot}</p>
+
+<p>
+  What if we start with apricot instead? We look for names beginning
+  with "a" again, so we get exactly the same set.
+</p>
+
+<p class="formula">[apricot] = [apple]</p>
+
+<p>
+  Starting with banana or blueberry gives the other class.
+  Both names begin with "b".
+</p>
+
+<p class="formula">[banana] = [blueberry] = {banana, blueberry}</p>
+
+
+    
+    <h2>Partitions</h2>
+
+<p>
+  A partition of A is a collection of nonempty subsets of A
+  such that each element of A belongs to exactly one of those subsets.
+</p>
+
+<p>
+  In our fruit example, each name belongs to exactly one of the two
+  classes. These classes form the following partition of A.
+</p>
+
+<p class="formula">{{apple, apricot}, {banana, blueberry}}</p>
+
+    <h2>Theorem: Equivalence Classes Form a Partition</h2>
+
+    <p>
+      Let R be an equivalence relation on A. The collection of all
+      distinct equivalence classes of R is a partition of A.
+    </p>
+
+    <h3>Proof: Every Element Belongs to Exactly One Class</h3>
+
+    <p>
+      Pick any a ∈ A. By definition, [a] contains every x ∈ A
+  for which a R x. Taking x = a, we have a R a by reflexivity,
+  so a ∈ [a]. Thus every element belongs to at least one class,
+  and each class [a] contains at least the element a.
+    </p>
+
+
+    <p>
+      Suppose [a] and [b] share an element z.
+      Since z ∈ [a], we have a R z. Since z ∈ [b], we have b R z.
+      By symmetry, z R b. Now a R z and z R b give a R b by transitivity.
+      By symmetry again, b R a.
+    </p>
+
+    <p>
+      We can now compare [a] and [b] using
+      <a href="./subsets.html">subsets</a>.
+    </p>
+
+    <ul>
+      <li>
+        To show [a] ⊆ [b], pick any x ∈ [a].
+        Then a R x. Since b R a and a R x, transitivity gives b R x.
+        Thus x ∈ [b].
+      </li>
+      <li>
+        To show [b] ⊆ [a], pick any x ∈ [b].
+        Then b R x. Since a R b and b R x, transitivity gives a R x.
+        Thus x ∈ [a].
+      </li>
+    </ul>
+
+    <p>
+      Each class is a subset of the other, so [a] = [b].
+      Therefore, two distinct classes cannot share an element.
+    </p>
+
+    <p>
+      Every element of A belongs to its own class, and two distinct
+  classes cannot share an element. Therefore, each element belongs
+  to exactly one class. Since each class is nonempty, the distinct
+  equivalence classes form a partition of A.
+    </p>
+  </article>
+</body>
+</html>
