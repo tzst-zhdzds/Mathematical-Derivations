@@ -186,6 +186,14 @@
 
     const cards = [
   {
+  id: "properties-of-relations",
+  title: "Properties of Relations and Equivalence Relations",
+  type: "Definition",
+  file: "./cards/properties-of-relations.html",
+  x: 680,
+  y: 860
+  },
+  {
     id: "binary-relations",
     title: "Binary Relations",
     type: "Definition",
@@ -273,6 +281,7 @@
     // kind："proof" 表示证明依赖，"concept" 表示概念依赖
 
     const links = [
+  { from: "binary-relations", to: "properties-of-relations" },
   { from: "cartesian-product", to: "binary-relations" },
   { from: "subsets", to: "binary-relations" },
   { from: "sets", to: "cartesian-product" },
