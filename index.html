@@ -18,7 +18,7 @@
     }
 
     header {
-      max-width: 1200px;
+      max-width: 1280px;
       margin: auto;
       padding: 40px 24px 24px;
     }
@@ -36,17 +36,11 @@
 
     .legend {
       display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-top: 20px;
-      font-size: 14px;
-      color: #667269;
-    }
-
-    .legend span {
-      display: flex;
       align-items: center;
       gap: 8px;
+      margin-top: 20px;
+      color: #667269;
+      font-size: 14px;
     }
 
     .line-sample {
@@ -54,45 +48,50 @@
       border-top: 2px solid #52715d;
     }
 
-    .line-sample.dashed {
-      border-top-style: dashed;
-    }
-
     .viewport {
-      margin: 0 24px 32px;
+      width: min(calc(100% - 32px), 1240px);
+      margin: 0 auto 32px;
       border: 1px solid #dedfd6;
       border-radius: 18px;
-      overflow: auto;
       background: #fbfaf7;
     }
 
     .graph {
       position: relative;
-      background-image:
-        radial-gradient(#d9ded5 1px, transparent 1px);
+      display: grid;
+      grid-template-columns: repeat(var(--columns, 1), minmax(0, 1fr));
+      align-items: start;
+      gap: clamp(60px, 6vw, 96px) clamp(24px, 4vw, 64px);
+      padding: clamp(20px, 3vw, 48px);
+      background-image: radial-gradient(#d9ded5 1px, transparent 1px);
       background-size: 24px 24px;
     }
 
     .connections {
       position: absolute;
       inset: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
     }
 
     .card {
-      position: absolute;
-      width: 220px;
-      height: 100px;
+      position: relative;
+      grid-row: var(--row);
+      grid-column: var(--column);
       display: flex;
       flex-direction: column;
       justify-content: center;
       gap: 8px;
-      padding: 18px 22px;
+      min-width: 0;
+      min-height: 100px;
+      padding: 18px clamp(16px, 2vw, 26px);
       border: 1px solid #b9c9bd;
       border-radius: 14px;
       background: #fff;
       color: #26352c;
       text-decoration: none;
+      overflow-wrap: anywhere;
       box-shadow: 0 4px 14px #26352c08;
       transition: box-shadow 150ms, border-color 150ms;
     }
@@ -108,23 +107,54 @@
     }
 
     .card-type {
-      font-size: 11px;
+      color: #607164;
+      font-size: 0.8125rem;
       font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
-      color: #6a7b6d;
     }
 
     .card-title {
-      font-size: 19px;
+      font-size: 1.1875rem;
       font-weight: 650;
       line-height: 1.3;
     }
 
+    .prerequisites {
+      display: none;
+      color: #516358;
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+
     footer {
+      max-width: 1280px;
+      margin: auto;
       padding: 0 24px 24px;
       color: #667269;
-      font-size: 13px;
+      font-size: 14px;
+    }
+
+    /* On narrow screens, show the cards in reading order. */
+    .compact .graph {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 14px;
+      padding: 14px;
+    }
+
+    .compact .card {
+      grid-area: auto;
+      min-height: 0;
+    }
+
+    .compact .prerequisites {
+      display: block;
+    }
+
+    .compact .connections,
+    .compact .legend,
+    .compact footer {
+      display: none;
     }
 
     @media (max-width: 600px) {
@@ -133,7 +163,7 @@
       }
 
       .viewport {
-        margin: 0 12px 24px;
+        width: calc(100% - 24px);
       }
     }
   </style>
@@ -142,17 +172,16 @@
 <body>
   <header>
     <h1>Mathematical Derivations</h1>
+
     <p>
       Explore mathematical ideas and the reasoning that connects them.
       Select a card to read.
     </p>
 
-  <div class="legend">
-  <span>
-    <i class="line-sample" aria-hidden="true"></i>
-    Dependency
-  </span>
-  </div>
+    <div class="legend">
+      <span class="line-sample" aria-hidden="true"></span>
+      <span>Dependency</span>
+    </div>
   </header>
 
   <main class="viewport" aria-label="Mathematical knowledge map">
@@ -166,7 +195,7 @@
             refY="5"
             markerWidth="7"
             markerHeight="7"
-            orient="auto-start-reverse">
+            orient="auto">
             <path d="M 0 0 L 10 5 L 0 10 Z" fill="#52715d"/>
           </marker>
         </defs>
@@ -179,192 +208,139 @@
   </footer>
 
   <script>
-    // ===== 在这里管理卡片 =====
-    // x：距离画布左边的位置
-    // y：距离画布上边的位置
-    // file：对应正文的文件路径
+    // Add new cards here.
+    // Cards with the same x share a column.
+    // Cards with the same y share a row.
 
     const cards = [
-  {
-  id: "properties-of-relations",
-  title: "Properties of Relations and Equivalence Relations",
-  type: "Definition",
-  file: "./cards/properties-of-relations.html",
-  x: 680,
-  y: 860
-  },
-  {
-    id: "binary-relations",
-    title: "Binary Relations",
-    type: "Definition",
-    file: "./cards/binary-relations.html",
-    x: 680,
-    y: 660
-  },
-  {
-    id: "cartesian-product",
-    title: "Ordered Pairs and Cartesian Products",
-    type: "Definition",
-    file: "./cards/cartesian-product.html",
-    x: 680,
-    y: 260
-  },
-  {
-    id: "power-set",
-    title: "Power Set",
-    type: "Definition",
-    file: "./cards/power-set.html",
-    x: 80,
-    y: 860
-  },
-  {
-    id: "de-morgan-difference",
-    title: "De Morgan’s Laws for Set Difference",
-    type: "Corollary",
-    file: "./cards/de-morgan-difference.html",
-    x: 380,
-    y: 660
-  },
-  {
-    id: "de-morgan",
-    title: "De Morgan’s Laws",
-    type: "Theorem",
-    file: "./cards/de-morgan.html",
-    x: 380,
-    y: 460
-  },
-  {
-    id: "set-operations",
-    title: "Set Operations",
-    type: "Definition",
-    file: "./cards/set-operations.html",
-    x: 380,
-    y: 260
-  },
-  {
-    id: "sets",
-    title: "Sets",
-    type: "Definition",
-    file: "./cards/sets.html",
-    x: 80,
-    y: 60
-  },
-  {
-    id: "set-equality",
-    title: "Set Equality",
-    type: "Definition",
-    file: "./cards/set-equality.html",
-    x: 80,
-    y: 260
-  },
-  {
-  id: "subsets",
-  title: "Subsets",
-  type: "Definition & Proof",
-  file: "./cards/subsets.html",
-  x: 80,
-  y: 460
-  },
-  {
-  id: "empty-set",
-  title: "Empty Set",
-  type: "Definition & Proof",
-  file: "./cards/empty-set.html",
-  x: 80,
-  y: 660
-  }
-];
+      {
+        id: "sets",
+        title: "Sets",
+        type: "Definition",
+        file: "./cards/sets.html",
+        x: 80,
+        y: 60
+      },
+      {
+        id: "set-equality",
+        title: "Set Equality",
+        type: "Definition",
+        file: "./cards/set-equality.html",
+        x: 80,
+        y: 260
+      },
+      {
+        id: "set-operations",
+        title: "Set Operations",
+        type: "Definition",
+        file: "./cards/set-operations.html",
+        x: 380,
+        y: 260
+      },
+      {
+        id: "cartesian-product",
+        title: "Ordered Pairs and Cartesian Products",
+        type: "Definition",
+        file: "./cards/cartesian-product.html",
+        x: 680,
+        y: 260
+      },
+      {
+        id: "subsets",
+        title: "Subsets",
+        type: "Definition & Proof",
+        file: "./cards/subsets.html",
+        x: 80,
+        y: 460
+      },
+      {
+        id: "de-morgan",
+        title: "De Morgan's Laws",
+        type: "Theorem",
+        file: "./cards/de-morgan.html",
+        x: 380,
+        y: 460
+      },
+      {
+        id: "empty-set",
+        title: "Empty Set",
+        type: "Definition & Proof",
+        file: "./cards/empty-set.html",
+        x: 80,
+        y: 660
+      },
+      {
+        id: "de-morgan-difference",
+        title: "De Morgan's Laws for Set Difference",
+        type: "Corollary",
+        file: "./cards/de-morgan-difference.html",
+        x: 380,
+        y: 660
+      },
+      {
+        id: "binary-relations",
+        title: "Binary Relations",
+        type: "Definition",
+        file: "./cards/binary-relations.html",
+        x: 680,
+        y: 660
+      },
+      {
+        id: "power-set",
+        title: "Power Set",
+        type: "Definition",
+        file: "./cards/power-set.html",
+        x: 80,
+        y: 860
+      },
+      {
+        id: "properties-of-relations",
+        title: "Properties of Relations and Equivalence Relations",
+        type: "Definition",
+        file: "./cards/properties-of-relations.html",
+        x: 680,
+        y: 860
+      }
+    ];
 
-    // ===== 在这里管理箭头 =====
-    // from：起点卡片的 id
-    // to：终点卡片的 id
-    // kind："proof" 表示证明依赖，"concept" 表示概念依赖
+    // Add new arrows here.
+    // Each arrow goes from a prerequisite to the card that uses it.
 
     const links = [
-  { from: "binary-relations", to: "properties-of-relations" },
-  { from: "cartesian-product", to: "binary-relations" },
-  { from: "subsets", to: "binary-relations" },
-  { from: "sets", to: "cartesian-product" },
-  { from: "empty-set", to: "power-set" },
-  { from: "de-morgan", to: "de-morgan-difference" },
-  { from: "set-operations", to: "de-morgan" },
-  { from: "set-equality", to: "de-morgan" },
-  { from: "sets", to: "set-operations" },
-  { from: "sets", to: "set-equality" },
-  { from: "set-equality", to: "subsets" },
-  { from: "subsets", to: "empty-set" }
-];
+      { from: "sets", to: "set-equality" },
+      { from: "sets", to: "set-operations" },
+      { from: "sets", to: "cartesian-product" },
+      { from: "set-equality", to: "subsets" },
+      { from: "set-equality", to: "de-morgan" },
+      { from: "set-operations", to: "de-morgan" },
+      { from: "subsets", to: "empty-set" },
+      { from: "de-morgan", to: "de-morgan-difference" },
+      { from: "cartesian-product", to: "binary-relations" },
+      { from: "subsets", to: "binary-relations" },
+      { from: "empty-set", to: "power-set" },
+      { from: "binary-relations", to: "properties-of-relations" }
+    ];
 
-    // ===== 以下是绘制程序，平时不用修改 =====
+    // Build the map from the cards and links above.
 
     const graph = document.getElementById("graph");
     const svg = document.getElementById("connections");
 
-    const cardWidth = 220;
-    const cardHeight = 100;
+    const columns = [...new Set(cards.map(card => card.x))].sort((a, b) => a - b);
+    const rows = [...new Set(cards.map(card => card.y))].sort((a, b) => a - b);
+    const readingOrder = [...cards].sort((a, b) => a.y - b.y || a.x - b.x);
 
-    const width = Math.max(
-      800,
-      ...cards.map(card => card.x + cardWidth + 80)
-    );
+    const cardById = new Map(cards.map(card => [card.id, card]));
+    const elements = new Map();
 
-    const height = Math.max(
-      560,
-      ...cards.map(card => card.y + cardHeight + 80)
-    );
+    graph.style.setProperty("--columns", Math.max(columns.length, 1));
 
-    graph.style.width = width + "px";
-    graph.style.height = height + "px";
-
-    svg.setAttribute("width", width);
-    svg.setAttribute("height", height);
-    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-
-    const cardById = new Map(
-      cards.map(card => [card.id, card])
-    );
-
-    // 画箭头：从起点卡片底部连到终点卡片顶部
-    for (const link of links) {
-      const from = cardById.get(link.from);
-      const to = cardById.get(link.to);
-
-      if (!from || !to) continue;
-
-      const x1 = from.x + cardWidth / 2;
-      const y1 = from.y + cardHeight + 4;
-      const x2 = to.x + cardWidth / 2;
-      const y2 = to.y - 6;
-      const middleY = (y1 + y2) / 2;
-
-      const path = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "path"
-      );
-
-      path.setAttribute(
-        "d",
-        `M ${x1} ${y1}
-         C ${x1} ${middleY},
-           ${x2} ${middleY},
-           ${x2} ${y2}`
-      );
-
-      path.setAttribute("fill", "none");
-      path.setAttribute("stroke", "#52715d");
-      path.setAttribute("stroke-width", "2");
-      path.setAttribute("marker-end", "url(#arrow)");
-
-      svg.appendChild(path);
-    }
-
-    // 创建可点击的卡片
-    for (const card of cards) {
+    for (const card of readingOrder) {
       const element = document.createElement("a");
       element.className = "card";
       element.href = card.file;
-      element.style.left = card.x + "px";
-      element.style.top = card.y + "px";
+      element.style.setProperty("--column", columns.indexOf(card.x) + 1);
+      element.style.setProperty("--row", rows.indexOf(card.y) + 1);
 
       const type = document.createElement("span");
       type.className = "card-type";
@@ -374,20 +350,80 @@
       title.className = "card-title";
       title.textContent = card.title;
 
+      element.append(type, title);
+
       const prerequisites = links
         .filter(link => link.to === card.id)
         .map(link => cardById.get(link.from)?.title)
         .filter(Boolean);
 
-      if (prerequisites.length) {
-        element.setAttribute(
-          "aria-label",
-          `${card.title}. Depends on: ${prerequisites.join(", ")}`
-        );
+      if (prerequisites.length > 0) {
+        const note = document.createElement("span");
+        note.className = "prerequisites";
+        note.textContent = "Depends on: " + prerequisites.join(", ");
+        element.append(note);
+        element.setAttribute("aria-label", card.title + ". " + note.textContent);
       }
 
-      element.append(type, title);
-      graph.appendChild(element);
+      graph.append(element);
+      elements.set(card.id, element);
+    }
+
+    const edges = [];
+
+    for (const link of links) {
+      const from = elements.get(link.from);
+      const to = elements.get(link.to);
+
+      if (!from || !to) continue;
+
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke", "#52715d");
+      path.setAttribute("stroke-width", "2");
+      path.setAttribute("marker-end", "url(#arrow)");
+
+      svg.append(path);
+      edges.push({ from, to, path });
+    }
+
+    function updateLayout() {
+      const compact = graph.clientWidth < columns.length * 248 + 32;
+      document.body.classList.toggle("compact", compact);
+
+      if (compact) return;
+
+      const area = graph.getBoundingClientRect();
+      const bounds = new Map();
+
+      for (const element of elements.values()) {
+        bounds.set(element, element.getBoundingClientRect());
+      }
+
+      for (const { from, to, path } of edges) {
+        const start = bounds.get(from);
+        const end = bounds.get(to);
+
+        const x1 = start.left + start.width / 2 - area.left;
+        const y1 = start.bottom - area.top + 2;
+        const x2 = end.left + end.width / 2 - area.left;
+        const y2 = end.top - area.top - 5;
+        const middleY = (y1 + y2) / 2;
+
+        path.setAttribute(
+          "d",
+          `M ${x1} ${y1} C ${x1} ${middleY}, ${x2} ${middleY}, ${x2} ${y2}`
+        );
+      }
+    }
+
+    updateLayout();
+
+    const observer = new ResizeObserver(updateLayout);
+    observer.observe(graph);
+
+    for (const element of elements.values()) {
+      observer.observe(element);
     }
   </script>
 </body>
