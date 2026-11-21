@@ -56,6 +56,14 @@
 
     const cards = [
       {
+        id: "mathematical-induction",
+        title: "Mathematical Induction",
+        type: "Theorem & Proof",
+        file: "./cards/mathematical-induction.html",
+        x: 680,
+        y: 1260
+      },
+      {
         id: "set-of-natural-numbers",
         title: "The Set of Natural Numbers",
         type: "Axiom & Proof",
@@ -181,6 +189,7 @@
     // Each arrow goes from a prerequisite to the card that uses it.
 
     const links = [
+      { from: "set-of-natural-numbers", to: "mathematical-induction" },
       { from: "natural-numbers", to: "set-of-natural-numbers" },
       { from: "empty-set", to: "natural-numbers" },
       { from: "binary-relations", to: "functions" },
