@@ -214,6 +214,14 @@
 
     const cards = [
       {
+        id: "natural-numbers",
+        title: "Natural Numbers",
+        type: "Definition",
+        file: "./cards/natural-numbers.html",
+        x: 80,
+        y: 1060
+      },
+      {
         id: "functions",
         title: "Functions",
         type: "Definition",
@@ -323,6 +331,7 @@
     // Each arrow goes from a prerequisite to the card that uses it.
 
     const links = [
+      { from: "empty-set", to: "natural-numbers" },
       { from: "binary-relations", to: "functions" },
       { from: "properties-of-relations", to: "equivalence-classes" },
       { from: "sets", to: "set-equality" },
