@@ -214,6 +214,14 @@
 
     const cards = [
       {
+        id: "functions",
+        title: "Functions",
+        type: "Definition",
+        file: "./cards/functions.html",
+        x: 380,
+        y: 860
+      },
+      {
         id: "equivalence-classes",
         title: "Equivalence Classes and Partitions",
         type: "Definition & Proof",
@@ -315,6 +323,7 @@
     // Each arrow goes from a prerequisite to the card that uses it.
 
     const links = [
+      { from: "binary-relations", to: "functions" },
       { from: "properties-of-relations", to: "equivalence-classes" },
       { from: "sets", to: "set-equality" },
       { from: "sets", to: "set-operations" },
