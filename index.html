@@ -1,216 +1,58 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mathematical Derivations</title>
-
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      background: #f7f5f0;
-      color: #26352c;
-      font-family: system-ui, sans-serif;
-    }
-
-    header {
-      max-width: 1280px;
-      margin: auto;
-      padding: 40px 24px 24px;
-    }
-
-    h1 {
-      margin: 0 0 12px;
-      font-size: clamp(26px, 4vw, 40px);
-    }
-
-    header p {
-      margin: 0;
-      color: #667269;
-      line-height: 1.7;
-    }
-
-    .legend {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 20px;
-      color: #667269;
-      font-size: 14px;
-    }
-
-    .line-sample {
-      width: 30px;
-      border-top: 2px solid #52715d;
-    }
-
-    .viewport {
-      width: min(calc(100% - 32px), 1240px);
-      margin: 0 auto 32px;
-      border: 1px solid #dedfd6;
-      border-radius: 18px;
-      background: #fbfaf7;
-    }
-
-    .graph {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(var(--columns, 1), minmax(0, 1fr));
-      align-items: start;
-      gap: clamp(60px, 6vw, 96px) clamp(24px, 4vw, 64px);
-      padding: clamp(20px, 3vw, 48px);
-      background-image: radial-gradient(#d9ded5 1px, transparent 1px);
-      background-size: 24px 24px;
-    }
-
-    .connections {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
-    .card {
-      position: relative;
-      grid-row: var(--row);
-      grid-column: var(--column);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 8px;
-      min-width: 0;
-      min-height: 100px;
-      padding: 18px clamp(16px, 2vw, 26px);
-      border: 1px solid #b9c9bd;
-      border-radius: 14px;
-      background: #fff;
-      color: #26352c;
-      text-decoration: none;
-      overflow-wrap: anywhere;
-      box-shadow: 0 4px 14px #26352c08;
-      transition: box-shadow 150ms, border-color 150ms;
-    }
-
-    .card:hover {
-      border-color: #39704e;
-      box-shadow: 0 8px 24px #26352c16;
-    }
-
-    .card:focus-visible {
-      outline: 3px solid #39704e;
-      outline-offset: 4px;
-    }
-
-    .card-type {
-      color: #607164;
-      font-size: 0.8125rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .card-title {
-      font-size: 1.1875rem;
-      font-weight: 650;
-      line-height: 1.3;
-    }
-
-    .prerequisites {
-      display: none;
-      color: #516358;
-      font-size: 0.875rem;
-      line-height: 1.5;
-    }
-
-    footer {
-      max-width: 1280px;
-      margin: auto;
-      padding: 0 24px 24px;
-      color: #667269;
-      font-size: 14px;
-    }
-
-    /* On narrow screens, show the cards in reading order. */
-    .compact .graph {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 14px;
-      padding: 14px;
-    }
-
-    .compact .card {
-      grid-area: auto;
-      min-height: 0;
-    }
-
-    .compact .prerequisites {
-      display: block;
-    }
-
-    .compact .connections,
-    .compact .legend,
-    .compact footer {
-      display: none;
-    }
-
-    @media (max-width: 600px) {
-      header {
-        padding: 28px 16px 20px;
-      }
-
-      .viewport {
-        width: calc(100% - 24px);
-      }
-    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #f7f5f0; color: #24362d; font: 1rem/1.5 system-ui, sans-serif; }
+    main { max-width: 1600px; margin: auto; padding: clamp(12px, 2.4vw, 36px); }
+    h1 { margin: 0; font-size: clamp(1.6rem, 3vw, 2.5rem); line-height: 1.2; }
+    .tools { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 12px 0; }
+    .tools p { margin: 0; color: #4e6358; }
+    .buttons { display: flex; gap: 5px; align-items: center; }
+    button { font: inherit; color: inherit; min-width: 40px; padding: 5px 10px; background: white; border: 1px solid #b7c6bc; border-radius: 7px; cursor: pointer; }
+    button:disabled { opacity: .45; cursor: default; }
+    output { min-width: 4ch; text-align: center; font-variant-numeric: tabular-nums; }
+    #view { height: 74vh; height: clamp(280px, 75dvh, 980px); overflow: auto; scrollbar-gutter: stable; border: 1px solid #c8d0c7; border-radius: 14px; background: #fbfaf7; cursor: grab; }
+    #view.dragging { cursor: grabbing; user-select: none; }
+    :focus-visible { outline: 3px solid #29734a; outline-offset: 2px; }
+    #frame { position: relative; overflow: hidden; margin-inline: auto; }
+    #map { position: absolute; top: 0; left: 0; transform-origin: 0 0; background-image: radial-gradient(#d5dcd2 1px, transparent 1px); background-size: 22px 22px; }
+    svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .edge { fill: none; stroke: #51745e; stroke-width: 2; }
+    .card { position: absolute; width: 242px; min-height: 96px; display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: 14px 18px; background: white; border: 1px solid #aabfb1; border-radius: 12px; box-shadow: 0 3px 10px #21392b0a; color: inherit; text-decoration: none; overflow-wrap: anywhere; cursor: pointer; }
+    .card:hover, .card:focus-visible { border-color: #397450; box-shadow: 0 4px 14px #21392b18; }
+    .card small { color: #536b5a; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; }
+    .card strong { font-size: 1.13rem; line-height: 1.28; }
   </style>
 </head>
-
 <body>
-  <header>
+  <main>
     <h1>Mathematical Derivations</h1>
-
-    <p>
-      Explore mathematical ideas and the reasoning that connects them.
-      Select a card to read.
-    </p>
-
-    <div class="legend">
-      <span class="line-sample" aria-hidden="true"></span>
-      <span>Dependency</span>
+    <div class="tools">
+      <p>Drag the map to explore. Follow an arrow from a prerequisite to the card that uses it.</p>
+      <div class="buttons" role="group" aria-label="Map controls">
+        <button id="minus" aria-label="Zoom out">-</button>
+        <output id="level" aria-label="Zoom level">100%</output>
+        <button id="plus" aria-label="Zoom in">+</button>
+        <button id="fit">Fit map</button>
+        <button id="home">Start</button>
+      </div>
     </div>
-  </header>
-
-  <main class="viewport" aria-label="Mathematical knowledge map">
-    <div class="graph" id="graph">
-      <svg class="connections" id="connections" aria-hidden="true">
-        <defs>
-          <marker
-            id="arrow"
-            viewBox="0 0 10 10"
-            refX="9"
-            refY="5"
-            markerWidth="7"
-            markerHeight="7"
-            orient="auto">
-            <path d="M 0 0 L 10 5 L 0 10 Z" fill="#52715d"/>
-          </marker>
-        </defs>
-      </svg>
-    </div>
+    <section id="view" tabindex="0" aria-label="Knowledge map. Use the arrow keys to scroll or Tab to visit cards.">
+      <div id="frame"><div id="map"><svg aria-hidden="true">
+        <defs><marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0 0 L10 5 L0 10 Z" fill="#51745e"></path>
+        </marker></defs>
+        <g id="edges"></g>
+      </svg></div></div>
+    </section>
   </main>
-
-  <footer>
-    Arrows point from supporting knowledge to the idea that uses it.
-  </footer>
-
   <script>
-    // Add new cards here.
-    // Cards with the same x share a column.
-    // Cards with the same y share a row.
+    // x sets the horizontal position. Equal y values share a row.
+    // Add a card on a later row than its prerequisites.
 
     const cards = [
       {
@@ -218,15 +60,15 @@
         title: "Natural Numbers",
         type: "Definition",
         file: "./cards/natural-numbers.html",
-        x: 80,
-        y: 1060
+        x: 680,
+        y: 860
       },
       {
         id: "functions",
         title: "Functions",
         type: "Definition",
         file: "./cards/functions.html",
-        x: 380,
+        x: 980,
         y: 860
       },
       {
@@ -234,7 +76,7 @@
         title: "Equivalence Classes and Partitions",
         type: "Definition & Proof",
         file: "./cards/equivalence-classes.html",
-        x: 680,
+        x: 1280,
         y: 1060
       },
       {
@@ -242,7 +84,7 @@
         title: "Sets",
         type: "Definition",
         file: "./cards/sets.html",
-        x: 80,
+        x: 680,
         y: 60
       },
       {
@@ -250,7 +92,7 @@
         title: "Set Equality",
         type: "Definition",
         file: "./cards/set-equality.html",
-        x: 80,
+        x: 680,
         y: 260
       },
       {
@@ -258,7 +100,7 @@
         title: "Set Operations",
         type: "Definition",
         file: "./cards/set-operations.html",
-        x: 380,
+        x: 80,
         y: 260
       },
       {
@@ -266,7 +108,7 @@
         title: "Ordered Pairs and Cartesian Products",
         type: "Definition",
         file: "./cards/cartesian-product.html",
-        x: 680,
+        x: 1280,
         y: 260
       },
       {
@@ -274,7 +116,7 @@
         title: "Subsets",
         type: "Definition & Proof",
         file: "./cards/subsets.html",
-        x: 80,
+        x: 680,
         y: 460
       },
       {
@@ -282,7 +124,7 @@
         title: "De Morgan's Laws",
         type: "Theorem",
         file: "./cards/de-morgan.html",
-        x: 380,
+        x: 80,
         y: 460
       },
       {
@@ -290,7 +132,7 @@
         title: "Empty Set",
         type: "Definition & Proof",
         file: "./cards/empty-set.html",
-        x: 80,
+        x: 530,
         y: 660
       },
       {
@@ -298,7 +140,7 @@
         title: "De Morgan's Laws for Set Difference",
         type: "Corollary",
         file: "./cards/de-morgan-difference.html",
-        x: 380,
+        x: 80,
         y: 660
       },
       {
@@ -306,7 +148,7 @@
         title: "Binary Relations",
         type: "Definition",
         file: "./cards/binary-relations.html",
-        x: 680,
+        x: 1130,
         y: 660
       },
       {
@@ -314,7 +156,7 @@
         title: "Power Set",
         type: "Definition",
         file: "./cards/power-set.html",
-        x: 80,
+        x: 380,
         y: 860
       },
       {
@@ -322,7 +164,7 @@
         title: "Properties of Relations and Equivalence Relations",
         type: "Definition",
         file: "./cards/properties-of-relations.html",
-        x: 680,
+        x: 1280,
         y: 860
       }
     ];
@@ -347,111 +189,166 @@
       { from: "empty-set", to: "power-set" },
       { from: "binary-relations", to: "properties-of-relations" }
     ];
-
-    // Build the map from the cards and links above.
-
-    const graph = document.getElementById("graph");
-    const svg = document.getElementById("connections");
-
-    const columns = [...new Set(cards.map(card => card.x))].sort((a, b) => a - b);
-    const rows = [...new Set(cards.map(card => card.y))].sort((a, b) => a - b);
-    const readingOrder = [...cards].sort((a, b) => a.y - b.y || a.x - b.x);
-
-    const cardById = new Map(cards.map(card => [card.id, card]));
-    const elements = new Map();
-
-    graph.style.setProperty("--columns", Math.max(columns.length, 1));
-
-    for (const card of readingOrder) {
-      const element = document.createElement("a");
-      element.className = "card";
-      element.href = card.file;
-      element.style.setProperty("--column", columns.indexOf(card.x) + 1);
-      element.style.setProperty("--row", rows.indexOf(card.y) + 1);
-
-      const type = document.createElement("span");
-      type.className = "card-type";
+    const byId = id => document.getElementById(id);
+    const view = byId("view"), frame = byId("frame"), map = byId("map");
+    const nodes = new Map();
+    const ordered = [...cards].sort((a, b) => a.y - b.y || a.x - b.x);
+    const minX = Math.min(...ordered.map(card => card.x));
+    const ranks = [...new Set(ordered.map(card => card.y))];
+    const rows = ranks.map(() => []);
+    for (const card of ordered) {
+      const node = document.createElement("a");
+      node.href = card.file;
+      node.className = "card";
+      const type = document.createElement("small"), title = document.createElement("strong");
       type.textContent = card.type;
-
-      const title = document.createElement("span");
-      title.className = "card-title";
       title.textContent = card.title;
-
-      element.append(type, title);
-
-      const prerequisites = links
-        .filter(link => link.to === card.id)
-        .map(link => cardById.get(link.from)?.title)
-        .filter(Boolean);
-
-      if (prerequisites.length > 0) {
-        const note = document.createElement("span");
-        note.className = "prerequisites";
-        note.textContent = "Depends on: " + prerequisites.join(", ");
-        element.append(note);
-        element.setAttribute("aria-label", card.title + ". " + note.textContent);
-      }
-
-      graph.append(element);
-      elements.set(card.id, element);
+      node.append(type, title);
+      map.append(node);
+      const rank = ranks.indexOf(card.y);
+      const item = { node, title: card.title, rank, x: card.x - minX + 72, incoming: [], outgoing: [] };
+      nodes.set(card.id, item);
+      rows[rank].push(item);
     }
 
     const edges = [];
-
     for (const link of links) {
-      const from = elements.get(link.from);
-      const to = elements.get(link.to);
-
-      if (!from || !to) continue;
-
+      const source = nodes.get(link.from), target = nodes.get(link.to);
+      if (!source || !target || source.rank >= target.rank) continue;
       const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      path.setAttribute("fill", "none");
-      path.setAttribute("stroke", "#52715d");
-      path.setAttribute("stroke-width", "2");
-      path.setAttribute("marker-end", "url(#arrow)");
-
-      svg.append(path);
-      edges.push({ from, to, path });
+      path.setAttribute("class", "edge");
+      path.setAttribute("marker-end", "url(#tip)");
+      byId("edges").append(path);
+      const edge = { source, target, path };
+      edges.push(edge);
+      source.outgoing.push(edge);
+      target.incoming.push(edge);
+    }
+    for (const item of nodes.values()) {
+      item.outgoing.sort((a, b) => a.target.x - b.target.x);
+      item.incoming.sort((a, b) => a.source.x - b.source.x);
+      const parents = item.incoming.map(e => e.source.title);
+      if (parents.length) item.node.setAttribute("aria-label", item.title + ". Depends on: " + parents.join(", "));
     }
 
-    function updateLayout() {
-      const compact = graph.clientWidth < columns.length * 248 + 32;
-      document.body.classList.toggle("compact", compact);
+    // Give each arrow its own attachment point on each card.
+    function port(item, group, edge) {
+      return item.x + item.node.offsetWidth * (group.indexOf(edge) + 1) / (group.length + 1);
+    }
 
-      if (compact) return;
+    // Find a free vertical passage on a row that an arrow skips.
+    function passage(preferred, blocked) {
+      const candidates = [preferred, ...blocked.flatMap(([lo, hi]) => [lo, hi])];
+      return candidates.filter(x => x >= 18 && blocked.every(([lo, hi]) => x <= lo || x >= hi))
+        .sort((a, b) => Math.abs(a - preferred) - Math.abs(b - preferred))[0];
+    }
 
-      const area = graph.getBoundingClientRect();
-      const bounds = new Map();
+    let width, height, scale = 1;
+    function layout() {
+      let top = 50, right = 0;
+      const bands = rows.map(row => {
+        const bottom = top + Math.max(...row.map(item => item.node.offsetHeight));
+        const blocked = [];
+        let nextX = 40;
+        for (const item of row) {
+          item.x = Math.max(item.baseX, nextX);
+          const w = item.node.offsetWidth;
+          item.top = top;
+          item.bottom = top + item.node.offsetHeight;
+          item.node.style.left = item.x + "px";
+          item.node.style.top = top + "px";
+          nextX = item.x + w + 36;
+          blocked.push([item.x - 20, item.x + w + 20]);
+          right = Math.max(right, item.x + w);
+        }
+        const band = { top, bottom, blocked };
+        top = bottom + 90;
+        return band;
+      });
+      for (const edge of edges) {
+        const { source, target } = edge;
+        const start = port(source, source.outgoing, edge);
+        const end = port(target, target.incoming, edge);
+        let x = start;
+        let d = "M " + x + " " + (source.bottom + 2);
+        function bend(toX, toY, midY) {
+          d += " C " + x + " " + midY + " " + toX + " " + midY + " " + toX + " " + toY;
+          x = toX;
+        }
+        for (let r = source.rank + 1; r < target.rank; r++) {
+          const band = bands[r];
+          const fraction = (r - source.rank) / (target.rank - source.rank);
+          const freeX = passage(start + fraction * (end - start), band.blocked);
+          band.blocked.push([freeX - 14, freeX + 14]);
+          right = Math.max(right, freeX);
+          bend(freeX, band.top - 6, (bands[r - 1].bottom + band.top) / 2);
+          d += " V " + (band.bottom + 2);
 
-      for (const element of elements.values()) {
-        bounds.set(element, element.getBoundingClientRect());
+        }
+        bend(end, target.top - 5, (bands[target.rank - 1].bottom + target.top) / 2);
+        edge.path.setAttribute("d", d);
       }
+      width = right + 100;
+      height = bands[bands.length - 1].bottom + 100;
+      map.style.width = width + "px";
+      map.style.height = height + "px";
+      applyScale(scale);
+    }
 
-      for (const { from, to, path } of edges) {
-        const start = bounds.get(from);
-        const end = bounds.get(to);
+    function applyScale(value) {
+      scale = value;
+      frame.style.width = Math.ceil(width * scale) + "px";
+      frame.style.height = Math.ceil(height * scale) + "px";
+      map.style.transform = "scale(" + scale + ")";
+      byId("level").textContent = Math.round(scale * 100) + "%";
+      byId("minus").disabled = scale <= 0.15;
+      byId("plus").disabled = scale >= 2;
+    }
+    function zoom(factor) {
+      const cx = view.clientWidth / 2, cy = view.clientHeight / 2;
+      const x = (view.scrollLeft + cx) / scale, y = (view.scrollTop + cy) / scale;
+      applyScale(Math.min(2, Math.max(0.15, scale * factor)));
+      view.scrollTo(x * scale - cx, y * scale - cy);
+    }
+    function start() {
+      const root = rows[0][0];
+      applyScale(Math.max(0.82, Math.min(1, view.clientWidth / width)));
+      view.scrollTo((root.x + root.node.offsetWidth / 2) * scale - view.clientWidth / 2, 0);
+    }
+    byId("fit").onclick = () => {
+      applyScale(Math.min(1, view.clientWidth / width, view.clientHeight / height));
+      view.scrollTo(0, 0);
+    };
+    byId("home").onclick = start;
+    byId("minus").onclick = () => zoom(1 / 1.25);
+    byId("plus").onclick = () => zoom(1.25);
 
-        const x1 = start.left + start.width / 2 - area.left;
-        const y1 = start.bottom - area.top + 2;
-        const x2 = end.left + end.width / 2 - area.left;
-        const y2 = end.top - area.top - 5;
-        const middleY = (y1 + y2) / 2;
-
-        path.setAttribute(
-          "d",
-          `M ${x1} ${y1} C ${x1} ${middleY}, ${x2} ${middleY}, ${x2} ${y2}`
-        );
+    // Touch uses native scrolling. Mouse dragging starts on the background.
+    let drag;
+    view.addEventListener("pointerdown", e => {
+      if (e.pointerType === "touch" || e.button !== 0 || e.target.closest("a")) return;
+      const box = view.getBoundingClientRect();
+      if (e.clientX >= box.left + view.clientLeft + view.clientWidth ||
+          e.clientY >= box.top + view.clientTop + view.clientHeight) return;
+      drag = { id: e.pointerId, x: e.clientX, y: e.clientY, left: view.scrollLeft, top: view.scrollTop };
+      view.setPointerCapture(e.pointerId);
+      view.classList.add("dragging");
+    });
+    view.addEventListener("pointermove", e => {
+      if (drag && drag.id === e.pointerId) {
+        view.scrollTo(drag.left + drag.x - e.clientX, drag.top + drag.y - e.clientY);
       }
-    }
+    });
+    view.addEventListener("lostpointercapture", () => {
+      drag = null;
+      view.classList.remove("dragging");
+    });
 
-    updateLayout();
-
-    const observer = new ResizeObserver(updateLayout);
-    observer.observe(graph);
-
-    for (const element of elements.values()) {
-      observer.observe(element);
-    }
+    for (const item of nodes.values()) item.baseX = item.x;
+    layout();
+    start();
+    const observer = new ResizeObserver(layout);
+    for (const item of nodes.values()) observer.observe(item.node);
   </script>
 </body>
 </html>
