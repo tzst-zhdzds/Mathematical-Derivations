@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Functions</title>
+
+  <style>
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.9;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: 28px;
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: anywhere;
+    }
+
+    h1, h2 {
+      line-height: 1.4;
+    }
+
+    a {
+      color: #27634b;
+    }
+
+    .formula {
+      text-align: center;
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">← Back to home page</a>
+  </nav>
+
+  <article>
+    <h1>Functions</h1>
+
+    <h2>Definition</h2>
+
+    <p>
+      A function from set A to set B is a
+      <a href="./binary-relations.html">binary relation</a>
+      that pairs each element of A with exactly one element of B.
+      We write f: A → B.
+    </p>
+
+    <p>
+      Set A is called the domain, and B is called the
+      codomain. For an input x in A, we write f(x) = y
+      when (x, y) belongs to the relation f.
+    </p>
+
+    <p class="formula">f(x) = y ⇔ (x, y) ∈ f</p>
+
+    <p>
+      To decide whether a relation from A to B is a function,
+      check each input x in A:
+    </p>
+
+    <ol>
+      <li>
+        1. For every element x belongs to set A must appear as the first term
+        of at least one ordered pair.
+      </li>
+      <li>
+        2. Each input has at most one output. Ex: you can't have (x, y) and (x, z) belongs to f when y ≠ z.
+      </li>
+    </ol>
+
+    <h2>Example</h2>
+
+    <p>
+      Let A be a set of fruit names and B a set of letters.
+      Define f by assigning each name its first letter.
+    </p>
+
+    <p class="formula">A = {apple, apricot, banana}</p>
+    <p class="formula">B = {a, b}</p>
+
+    <p>Written as a set of ordered pairs, the function is</p>
+
+    <p class="formula">f = {(apple, a), (apricot, a), (banana, b)}.</p>
+
+    <p>
+      For example, the pair (apple, a) tells us that f(apple) = a.
+      We also have f(apricot) = a. Two different inputs can share
+      an output. Each input still has exactly one output.
+    </p>
+
+    <p>
+      Keep the same sets A and B. What happens if we remove (banana, b)
+      from f? The resulting relation is
+    </p>
+
+    <p class="formula">R = {(apple, a), (apricot, a)}.</p>
+
+    <p>
+      The name banana still belongs to A, but it has no output in R.
+      So R is not a function from A to B.
+    </p>
+
+    <p>
+      Now start again with f and add the pair (apple, b).
+      The resulting relation is
+    </p>
+
+    <p class="formula">
+      S = {(apple, a), (apple, b), (apricot, a), (banana, b)}.
+    </p>
+
+    <p>
+      Every input has an output, but apple has two different outputs,
+      a and b. So S is not a function from A to B.
+    </p>
+  </article>
+</body>
+</html>
