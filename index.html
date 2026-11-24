@@ -56,6 +56,14 @@
 
     const cards = [
       {
+        id: "addition-laws",
+        title: "Commutativity and Associativity of Addition",
+        type: "Theorem",
+        file: "addition-laws.html",
+        x: 680,
+        y: 1860
+      },
+      {
         id: "addition",
         title: "Addition of Natural Numbers",
         type: "Definition & Proof",
@@ -205,6 +213,7 @@
     // Each arrow goes from a prerequisite to the card that uses it.
 
     const links = [
+      { from: "addition", to: "addition-laws" },
       { from: "recursion", to: "addition" },
       { from: "functions", to: "recursion" },
       { from: "mathematical-induction", to: "recursion" },
