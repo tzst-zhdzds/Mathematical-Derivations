@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recursion on the Natural Numbers</title>
+
+  <style>
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.9;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: 28px;
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: anywhere;
+    }
+
+    h1, h2 {
+      line-height: 1.4;
+    }
+
+    a {
+      color: #27634b;
+    }
+
+    .formula {
+      text-align: center;
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">Back to home page</a>
+  </nav>
+
+  <article>
+    <h1>Recursion on the Natural Numbers</h1>
+
+    <p>
+      Suppose we want to define a
+      <a href="./functions.html">function</a> on the natural numbers.
+      One way is to give its value at 0 and a rule for finding each
+      new value from the previous one. This is called
+      <strong>definition by recursion</strong>.
+    </p>
+
+    <h2>Example</h2>
+
+    <p>
+      Recall that S(n) is the successor of n. We want a function
+      f: ℕ → ℕ that follows these two rules:
+    </p>
+
+    <ol>
+      <li>Starting value. f(0) = 2.</li>
+      <li>Step rule. For every n ∈ ℕ, f(S(n)) = S(f(n)).</li>
+    </ol>
+
+    <p>
+      What does the second rule say? On the left, S(n) is the
+      <em>next input</em>. On the right, we take the <em>current
+      output</em> f(n) and apply S to it.
+    </p>
+
+    <p>
+      For example, to find f(1), use the fact that 1 = S(0).
+      The rule then tells us to take the successor of f(0):
+    </p>
+
+    <p class="formula">f(1) = f(S(0)) = S(f(0)) = S(2) = 3.</p>
+
+    <p>Now that we know f(1), we can use it to find f(2):</p>
+
+    <p class="formula">f(2) = f(S(1)) = S(f(1)) = S(3) = 4.</p>
+
+    <h2>The Recursion Theorem</h2>
+
+    <p>
+      Let A be a set. Choose a starting value a ∈ A and a function
+      g: A → A. Then there exists exactly one function f: ℕ → A
+      satisfying both rules:
+    </p>
+
+    <p class="formula">f(0) = a.</p>
+    <p class="formula">f(S(n)) = g(f(n)) for every n ∈ ℕ.</p>
+
+    <p>
+      Here g acts on the current output. Since g from A to A, its
+      result can be used as the input to g at the next step.
+      In our example, A = ℕ, the starting value is 2, and g is
+      the successor function.
+    </p>
+
+    <h2>Proof</h2>
+
+    <p>
+      First, consider a list of outputs that stops at a particular
+      input n. Its entries are indexed from 0 through n. Call the
+      list valid if its first entry is a and each following entry
+      is g applied to the preceding entry.
+    </p>
+
+    <p>
+      We use <a href="./mathematical-induction.html">mathematical
+      induction</a> to prove that, for every n, there is exactly one
+      valid list ending at index n.
+    </p>
+
+    <ol>
+      <li>
+        Base case. At index 0, the list has just
+        one entry. That entry must be a, so there is exactly one
+        valid list.
+      </li>
+      <li>
+        Inductive step. Suppose there is exactly one
+        valid list ending at index n. Call its last entry y.
+        Append g(y) to get a valid list ending at index S(n).
+        Why is this longer list unique? Removing the last entry
+        from any valid list through S(n) leaves a valid list through n.
+        By the induction hypothesis, that shorter list is the one we
+        started with. Its last entry is y, so the only possible next
+        entry is g(y).
+      </li>
+    </ol>
+
+    <p>
+      Existence. For each n, define f(n) to be the
+      last entry of the unique valid list through n. This assigns
+      exactly one element of A to each n ∈ ℕ, so it defines a
+      function. The list through 0 gives f(0) = a. Extending the
+      list through n gives f(S(n)) = g(f(n)).
+    </p>
+
+    <p>
+      Uniqueness. Suppose another function h: ℕ → A
+      satisfies the same two rules. For any n, the outputs of h from
+      index 0 through index n form a valid list. There is only one
+      such list, so its last entry must be f(n). Thus h(n) = f(n)
+      for every n ∈ ℕ, and h = f.
+    </p>
+  </article>
+</body>
+</html>
