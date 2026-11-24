@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laws of Multiplication</title>
+
+  <style>
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.9;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: 28px;
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: anywhere;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.4;
+    }
+
+    a {
+      color: #27634b;
+    }
+
+    .formula {
+      text-align: center;
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">← Back to home page</a>
+  </nav>
+
+  <article>
+    <h1>Laws of Multiplication</h1>
+
+    <p>
+      Throughout this card, a, b, and c are natural numbers, and S(b)
+      means the successor of b. Recall the two rules that
+      <a href="./multiplication.html">define multiplication</a>.
+    </p>
+
+    <p class="formula">a · 0 = 0</p>
+    <p class="formula">a · S(b) = (a · b) + a</p>
+
+    <h2>Distributivity over Addition</h2>
+
+    <p class="formula">a · (b + c) = (a · b) + (a · c)</p>
+
+    <p>
+      For example, 3 · (2 + 4) means adding 3 a total of six times.
+      The first two copies of 3 contribute 3 · 2, and the last four
+      contribute 3 · 4. The law says that we can split the sum this way
+      for any natural numbers a, b, and c.
+    </p>
+
+    <p>Proof. Fix a and b. We use induction on c.</p>
+
+    <p>
+      Base case. Let c = 0. On the left, b + 0 = b,
+      so we get a · b. On the right, a · 0 = 0, so we also get a · b.
+    </p>
+
+    <p>
+      Induction step. Assume the law holds for c.
+      We want to prove it with S(c) in place of c. Our goal is
+    </p>
+
+    <p class="formula">a · (b + S(c)) = (a · b) + (a · S(c)).</p>
+
+    <p>
+      Start on the left. By the definition of addition,
+      b + S(c) = S(b + c). Now the second factor is a successor,
+      so we can apply the definition of multiplication.
+    </p>
+
+    <p class="formula">a · (b + S(c)) = a · S(b + c) = a · (b + c) + a.</p>
+
+    <p>
+      By the induction hypothesis, we can replace a · (b + c)
+      with (a · b) + (a · c). Then use the
+      <a href="./addition-laws.html">associative law of addition</a>
+      to group the last two terms.
+    </p>
+
+    <p class="formula">
+      ((a · b) + (a · c)) + a = (a · b) + ((a · c) + a).
+    </p>
+
+    <p>
+      The expression (a · c) + a is exactly a · S(c) by definition.
+      This gives the right side of our goal and completes the proof.
+    </p>
+
+    <h2>Commutativity of Multiplication</h2>
+
+    <p class="formula">a · b = b · a</p>
+
+    <p>
+      To compare a · S(b) with S(b) · a, we need to know what happens
+      when the successor is the first factor. We also need a rule for
+      zero as the first factor.
+    </p>
+
+    <h3>Lemma 1: Zero as the First Factor</h3>
+
+    <p class="formula">0 · b = 0</p>
+
+    <p>
+      Proof. Use induction on b. For b = 0, the
+      definition gives 0 · 0 = 0. Now suppose 0 · b = 0. Then
+    </p>
+
+    <p class="formula">0 · S(b) = (0 · b) + 0 = 0 + 0 = 0.</p>
+
+    <p>This proves the lemma for every b.</p>
+
+    <h3>Lemma 2: A Successor as the First Factor</h3>
+
+    <p class="formula">S(a) · b = (a · b) + b</p>
+
+    <p>
+      For example, compare 4 · 3 with 3 · 3. Each sum has three terms.
+      Changing each term from 3 to 4 adds one to each of the three
+      terms, so the total increases by three. The lemma makes the same
+      claim for any a and b.
+    </p>
+
+    <p>Proof. Fix a and use induction on b.</p>
+
+    <p>
+      Base case. For b = 0, the left side is
+      S(a) · 0 = 0. The right side is (a · 0) + 0 = 0.
+    </p>
+
+    <p>
+      Induction step. Assume S(a) · b = (a · b) + b.
+      Replacing b with S(b) gives the following goal:
+    </p>
+
+    <p class="formula">S(a) · S(b) = (a · S(b)) + S(b).</p>
+
+    <p>
+      Start on the left. By the definition of multiplication, moving
+      from b to S(b) adds one more copy of the first factor, S(a).
+      Then apply the induction hypothesis.
+    </p>
+
+    <p class="formula">
+      S(a) · S(b) = (S(a) · b) + S(a) = ((a · b) + b) + S(a).
+    </p>
+
+    <p>
+      By associativity of addition, we can group the last two terms
+      as b + S(a). To see how this helps, use the definition of
+      addition and then commutativity of addition:
+    </p>
+
+    <p class="formula">b + S(a) = S(b + a) = S(a + b) = a + S(b).</p>
+
+    <p>
+      Replace b + S(a) with a + S(b). Then group the first two terms.
+    </p>
+
+    <p class="formula">
+      (a · b) + (b + S(a)) = (a · b) + (a + S(b))
+      = ((a · b) + a) + S(b).
+    </p>
+
+    <p>
+      By definition, (a · b) + a = a · S(b). This gives
+      (a · S(b)) + S(b), exactly the right side of our goal.
+      The lemma follows by induction.
+    </p>
+
+    <h2>Proof of Commutativity</h2>
+
+    <p>Fix a. We prove a · b = b · a by induction on b.</p>
+
+    <p>
+      Base case. By definition, a · 0 = 0.
+      By Lemma 1, 0 · a = 0. Therefore, a · 0 = 0 · a.
+    </p>
+
+    <p>
+      Induction step. Assume a · b = b · a.
+      Our goal is a · S(b) = S(b) · a.
+    </p>
+
+    <ol>
+      <li>By definition, a · S(b) = (a · b) + a.</li>
+      <li>By the induction hypothesis, (a · b) + a = (b · a) + a.</li>
+      <li>By Lemma 2, S(b) · a = (b · a) + a.</li>
+    </ol>
+
+    <p>
+      Both sides of our goal equal (b · a) + a.
+      Therefore, a · b = b · a for all natural numbers a and b.
+    </p>
+
+    <h3>Corollary: Distributivity with the Sum on the Left</h3>
+
+    <p class="formula">(a + b) · c = (a · c) + (b · c)</p>
+
+    <p>
+      Proof. Use commutativity to move c to the left.
+      Apply the distributive law proved above, then use commutativity
+      on each product.
+    </p>
+
+    <p class="formula">
+      (a + b) · c = c · (a + b) = (c · a) + (c · b)
+      = (a · c) + (b · c).
+    </p>
+
+    <h2>Associativity of Multiplication</h2>
+
+    <p class="formula">(a · b) · c = a · (b · c)</p>
+
+    <p>Proof. Fix a and b. We use induction on c.</p>
+
+    <p>
+      Base case. Let c = 0. On the left,
+      (a · b) · 0 = 0. On the right, b · 0 = 0,
+      so a · (b · 0) = a · 0 = 0.
+    </p>
+
+    <p>
+      Induction step. Assume (a · b) · c = a · (b · c).
+      Our goal is
+    </p>
+
+    <p class="formula">(a · b) · S(c) = a · (b · S(c)).</p>
+
+    <p>
+      On the left, the first factor is the product a · b.
+      Applying the definition of multiplication adds one more copy
+      of that product. Then we use the induction hypothesis.
+    </p>
+
+    <p class="formula">
+      (a · b) · S(c) = ((a · b) · c) + (a · b)
+      = a · (b · c) + (a · b).
+    </p>
+
+    <p>
+      On the right, first expand the inner product:
+      b · S(c) = (b · c) + b. Now we can distribute a over that sum.
+    </p>
+
+    <p class="formula">
+      a · (b · S(c)) = a · ((b · c) + b)
+      = a · (b · c) + (a · b).
+    </p>
+
+    <p>
+      Both sides give the same sum. By induction,
+      (a · b) · c = a · (b · c) for all natural numbers a, b, and c.
+    </p>
+  </article>
+</body>
+</html>
