@@ -56,6 +56,14 @@
 
     const cards = [
       {
+        id: "recursion",
+        title: "Recursion on the Natural Numbers",
+        type: "Theorem & Proof",
+        file: "./cards/recursion.html",
+        x: 680,
+        y: 1460
+      },
+      {
         id: "mathematical-induction",
         title: "Mathematical Induction",
         type: "Theorem & Proof",
@@ -189,6 +197,8 @@
     // Each arrow goes from a prerequisite to the card that uses it.
 
     const links = [
+      { from: "functions", to: "recursion" },
+      { from: "mathematical-induction", to: "recursion" },
       { from: "set-of-natural-numbers", to: "mathematical-induction" },
       { from: "natural-numbers", to: "set-of-natural-numbers" },
       { from: "empty-set", to: "natural-numbers" },
