@@ -56,6 +56,14 @@
 
     const cards = [
       {
+        id: "multiplication-laws",
+        title: "Laws of Multiplication",
+        type: "Theorem",
+        file: "./cards/multiplication-laws.html",
+        x: 980,
+        y: 2060
+      },
+      {
         id: "multiplication",
         title: "Multiplication of Natural Numbers",
         type: "Definition",
@@ -221,6 +229,8 @@
     // Each arrow goes from a prerequisite to the card that uses it.
 
     const links = [
+      { from: "multiplication", to: "multiplication-laws" },
+      { from: "addition-laws", to: "multiplication-laws" },
       { from: "addition", to: "multiplication" },
       { from: "addition", to: "addition-laws" },
       { from: "recursion", to: "addition" },
