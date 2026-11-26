@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ordered Pairs and Cartesian Products</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2 { line-height: 1.35; }
+    h2 { margin-top: 2em; }
+    a { color: #27634b; }
+
+    .formula {
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      background: #f3f6f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <nav><a href="../index.html">Back to home page</a></nav>
+
+  <article>
+    <h1>Ordered Pairs and Cartesian Products</h1>
+
+    <h2>How Can a Set Record Order?</h2>
+
+    <p>
+      The sets {a, b} and {b, a} have exactly the same elements,
+      so they are equal by <a href="./zfc.html#axiom-1">Axiom 1</a>.
+      Suppose we want to record which entry came first.
+      We give the first entry its own singleton and define the
+      ordered pair (a, b) by
+    </p>
+
+    <p class="formula">(a, b) = {{a}, {a, b}}.</p>
+
+    <p>
+      By <a href="./zfc.html#axiom-3">Axiom 3</a>, we can form
+      {a} and {a, b}, then apply the same axiom to these two sets.
+      The outer braces collect the two inner sets. If b = a, the
+      inner sets coincide, so (a, a) = {{a}}.
+    </p>
+
+    <h2 id="theorem-9">Theorem 9: Equality of Ordered Pairs</h2>
+
+    <p class="formula">(a, b) = (c, d) ⇔ (a = c and b = d).</p>
+
+    <p>
+      Proof. Suppose (a, b) = (c, d). First look for an element
+      that belongs to every inner set in {{a}, {a, b}}.
+      The element a does. It is the only one that can, because
+      anything belonging to every inner set must belong to {a}.
+      By the same reasoning, c is the unique element common to
+      every inner set in {{c}, {c, d}}. The two outer sets are
+      equal, so their unique common element is the same. Thus a = c.
+    </p>
+
+    <p>Substitute a for c. The equality now reads</p>
+
+    <p class="formula">{{a}, {a, b}} = {{a}, {a, d}}.</p>
+
+    <ul>
+      <li>
+        If b = a, the left side has only one member, {a}.
+        The set {a, d} on the right must therefore equal {a}.
+        Since d belongs to {a, d}, this gives d = a = b.
+      </li>
+      <li>
+        If b ≠ a, then {a, b} differs from {a} because it contains b.
+        It must also be a member of the right side. Its only possible
+        match is {a, d}. Thus b belongs to {a, d}. Since b ≠ a,
+        we get b = d.
+      </li>
+    </ul>
+
+    <p>
+      Conversely, if a = c and b = d, substituting these equal
+      entries into {{a}, {a, b}} gives {{c}, {c, d}}.
+      This proves the reverse direction.
+    </p>
+
+    <h2>Cartesian Products</h2>
+
+    <p>
+      Given sets A and B, we want to collect all ordered pairs with
+      a first entry from A and a second entry from B. We call this
+      set the Cartesian product of A and B and write A × B.
+    </p>
+
+    <p>
+      For example, let a and b be distinct, and take A = {a, b}
+      and B = {a}. The first entry can be a or b. The second
+      entry must be a. In the reverse product, the first entry
+      must be a instead.
+    </p>
+
+    <p class="formula">A × B = {(a, a), (b, a)}</p>
+    <p class="formula">B × A = {(a, a), (a, b)}</p>
+
+    <p>
+      By <a href="#theorem-9">Theorem 9</a>, (b, a) differs from
+      both pairs in B × A because their first entries differ.
+      Thus A × B and B × A are different sets in this example.
+    </p>
+
+    <h2 id="theorem-10">Theorem 10: The Cartesian Product Exists</h2>
+
+    <p>
+      For any sets A and B, there is a unique set whose elements
+      are exactly the ordered pairs with first entry in A and
+      second entry in B.
+    </p>
+
+    <p>
+      Proof. To use <a href="./zfc.html#axiom-2">Axiom 2</a>,
+      we need a set to select from. Where can we find every pair
+      we want? Start with the
+      <a href="./union-and-intersection.html">union</a> U = A ∪ B.
+      Take x ∈ A and y ∈ B. Then x and y both belong to U.
+    </p>
+
+    <ol>
+      <li>
+        The inner sets {x} and {x, y} are subsets of U. By the
+        definition of a <a href="./power-set.html">power set</a>,
+        both are elements of P(U).
+      </li>
+      <li>
+        The members of (x, y) are precisely those inner sets.
+        Each belongs to P(U), so the whole ordered pair is a
+        subset of P(U). It is therefore an element of P(P(U)).
+      </li>
+    </ol>
+
+    <p class="formula">(x, y) ⊆ P(U), so (x, y) ∈ P(P(U)).</p>
+
+    <p>
+      By <a href="./zfc.html#axiom-5">Axiom 5</a>, we can form
+      P(U) and then P(P(U)). From P(P(U)), keep an element z
+      exactly when there exist x ∈ A and y ∈ B such that z = (x, y).
+      By <a href="./zfc.html#axiom-2">Axiom 2</a>, the selected
+      elements form a set. Every desired pair was available, and
+      every selected element is such a pair.
+    </p>
+
+    <p>
+      By <a href="./zfc.html#axiom-1">Axiom 1</a>, these elements
+      determine a unique set. This is A × B. By
+      <a href="#theorem-9">Theorem 9</a>, equal pairs have equal
+      entries, so we can test membership directly.
+    </p>
+
+    <p class="formula">(x, y) ∈ A × B ⇔ (x ∈ A and y ∈ B).</p>
+  </article>
+</body>
+</html>
