@@ -54,23 +54,29 @@
     // x sets the horizontal position. Equal y values share a row.
     // Add a card on a later row than its prerequisites.
 
-    const cards = [  
-      {
-      id: "logic",
-      title: "Basic Logic",
-      type: "Foundations",
-      file: "./cards/logic.html",
-      x: 0,
-      y: 0
-      }
-    ];
+   const cards = [
+  {
+    id: "logic",
+    title: "Basic Logic",
+    type: "Foundations",
+    file: "./cards/logic.html",
+    x: 0,
+    y: 0
+  },
+  {
+    id: "zfc",
+    title: "ZFC Axioms",
+    type: "Axioms",
+    file: "./cards/zfc.html",
+    x: 0,
+    y: 200
+  }
+];
 
-    // Add new arrows here.
-    // Each arrow goes from a prerequisite to the card that uses it.
-
-    const links = [
-      
-    ];
+const links = [
+  { from: "logic", to: "zfc" }
+];
+    
     const byId = id => document.getElementById(id);
     const view = byId("view"), frame = byId("frame"), map = byId("map");
     const nodes = new Map();
