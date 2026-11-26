@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mathematical Induction</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2 { line-height: 1.35; }
+    h2 { margin-top: 2em; }
+    a { color: #27634b; }
+
+    .formula {
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      background: #f3f6f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <nav><a href="../index.html">Back to home page</a></nav>
+
+  <article>
+    <h1>Mathematical Induction</h1>
+
+    <p>
+      Suppose a statement holds for 0, and whenever it holds for a
+      natural number, it also holds for its successor. Starting at 0,
+      we can reach the conclusion for 1, then for 2, then for 3.
+      What justifies the word "every" in "every natural number"?
+    </p>
+
+    <h2 id="theorem-7">Theorem 7: Mathematical Induction</h2>
+
+    <p>
+      Let P(n) stand for a condition on n written in the language of
+      set theory. To prove that P(n) holds for every natural number n,
+      it is enough to establish these two facts.
+    </p>
+
+    <ol>
+      <li>Base case. P(0) holds.</li>
+      <li>Induction step. For every k ∈ ℕ, if P(k) holds, then P(S(k)) holds.</li>
+    </ol>
+
+    <p>
+      In the induction step, we fix an arbitrary k ∈ ℕ and assume
+      P(k). This assumption is called the induction hypothesis.
+      Our goal in that step is P(S(k)).
+    </p>
+
+    <p>
+      Proof. Suppose both facts hold. By
+      <a href="./zfc.html#axiom-2">Axiom 2</a>, we can form the set T
+      of all natural numbers for which P holds. Its membership test is
+    </p>
+
+    <p class="formula">n ∈ T ⇔ (n ∈ ℕ and P(n) holds).</p>
+
+    <p>
+      The base case gives P(0). Since 0 ∈ ℕ, we have 0 ∈ T.
+      Now take any k ∈ T. Then k ∈ ℕ and P(k) holds.
+      The induction step gives P(S(k)). Also, S(k) ∈ ℕ because
+      ℕ is inductive. Thus S(k) meets both conditions for membership in T.
+    </p>
+
+    <p>
+      We have shown that T contains 0 and contains the successor of
+      each of its elements. Thus T is inductive. By
+      <a href="./natural-numbers.html#theorem-6">Theorem 6</a>,
+      ℕ is contained in every inductive set, so ℕ ⊆ T.
+      Every natural number therefore belongs to T, which means
+      that P holds for every natural number.
+    </p>
+
+    <h2 id="theorem-8">Theorem 8: Predecessors of Natural Numbers</h2>
+
+    <p>
+      A natural number m is a predecessor of n if S(m) = n.
+      For example, 2 is a predecessor of 3 because S(2) = 3.
+      We will prove that 0 has no predecessor and that every
+      nonzero natural number has exactly one.
+    </p>
+
+    <p>
+      Why does 0 have no predecessor? Recall that S(m) = m ∪ {m}.
+      Since m ∈ {m}, we have m ∈ S(m). Thus every successor
+      contains an element. Since 0 is empty, no successor equals 0.
+    </p>
+
+    <p>
+      To prove existence for nonzero natural numbers, use
+      <a href="#theorem-7">Theorem 7</a> with the following condition.
+    </p>
+
+    <p class="formula">P(n) means "n = 0 or n has a predecessor".</p>
+
+    <ul>
+      <li>
+        Base case. P(0) holds because its first alternative is 0 = 0.
+      </li>
+      <li>
+        Induction step. Take any k ∈ ℕ. We need to show P(S(k)).
+        Which natural number has successor S(k)? The number k itself.
+        This proves the second alternative for S(k). In this example
+        the step works even without using the hypothesis P(k).
+      </li>
+    </ul>
+
+    <p>
+      By induction, P(n) holds for every n ∈ ℕ. If n ≠ 0,
+      only the second alternative can hold, so n has a predecessor.
+    </p>
+
+    <p>
+      Could a number have two different predecessors? Suppose a and b
+      are both predecessors of n. Then S(a) = n = S(b).
+      Assume for contradiction that a ≠ b.
+    </p>
+
+    <ul>
+      <li>
+        We have a ∈ S(a), so a ∈ S(b) = b ∪ {b}.
+        Thus a ∈ b or a = b. Our assumption leaves a ∈ b.
+      </li>
+      <li>
+        Likewise b ∈ S(b), so b ∈ S(a) = a ∪ {a}.
+        Thus b ∈ a or b = a. Our assumption leaves b ∈ a.
+      </li>
+    </ul>
+
+    <p>
+      By <a href="./zfc.html#axiom-3">Axiom 3</a>, we can form
+      D = {a, b}. By <a href="./zfc.html#axiom-8">Axiom 8</a>,
+      this nonempty set must have a member with no element in common
+      with D. Check its two members. The sets a and D share b,
+      because b ∈ a and b ∈ D. The sets b and D share a,
+      because a ∈ b and a ∈ D.
+    </p>
+
+    <p>
+      Neither member meets the condition required by Axiom 8.
+      This contradiction rules out a ≠ b. Hence a = b, proving
+      that the predecessor of a nonzero natural number is unique.
+    </p>
+  </article>
+</body>
+</html>
