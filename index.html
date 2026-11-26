@@ -56,6 +56,14 @@
 
    const cards = [
   {
+    id: "subsets",
+    title: "Subsets",
+    type: "Definition & Proof",
+    file: "./cards/subsets.html",
+    x: 0,
+    y: 400
+  },
+  {
     id: "logic",
     title: "Basic Logic",
     type: "Foundations",
@@ -74,7 +82,8 @@
 ];
 
 const links = [
-  { from: "logic", to: "zfc" }
+  { from: "logic", to: "zfc" },
+  { from: "zfc", to: "subsets" }
 ];
     
     const byId = id => document.getElementById(id);
