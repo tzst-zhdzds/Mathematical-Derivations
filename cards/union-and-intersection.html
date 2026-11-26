@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Union and Intersection</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2 { line-height: 1.35; }
+    h2 { margin-top: 2em; }
+    a { color: #27634b; }
+
+    .formula {
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      background: #f3f6f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <nav><a href="../index.html">Back to home page</a></nav>
+
+  <article>
+    <h1>Union and Intersection</h1>
+
+    <h2>Union</h2>
+
+    <p>
+      Given sets A and B, we want a set containing everything that
+      belongs to A, to B, or to both. How do we know such a set exists?
+    </p>
+
+    <p>
+      By <a href="./zfc.html#axiom-3">Axiom 3</a>, we can form {A, B}.
+      Now apply <a href="./zfc.html#axiom-4">Axiom 4</a> to {A, B}.
+      It gives us a set containing exactly the elements that belong
+      to some member of {A, B}. Since the members are A and B,
+      this means precisely that an element belongs to A or to B.
+    </p>
+
+    <p>
+      By <a href="./zfc.html#axiom-1">Axiom 1</a>, these elements
+      determine a unique set. We call it the union of A and B
+      and write A ∪ B.
+    </p>
+
+    <p class="formula">x ∈ A ∪ B ⇔ (x ∈ A ∨ x ∈ B)</p>
+
+    <h2>Intersection</h2>
+
+    <p>
+      Suppose we want to keep only the elements that A and B share.
+      Start with A. For each element x of A, the condition for
+      keeping it is x ∈ B.
+    </p>
+
+    <p>
+      By <a href="./zfc.html#axiom-2">Axiom 2</a>, the elements of A
+      that pass this test form a set. By
+      <a href="./zfc.html#axiom-1">Axiom 1</a>, this set is unique.
+      We call it the intersection of A and B and write A ∩ B.
+    </p>
+
+    <p class="formula">x ∈ A ∩ B ⇔ (x ∈ A ∧ x ∈ B)</p>
+
+    <h2>Example</h2>
+
+    <p>
+      Let a, b, and c be three distinct sets.
+      Take A = {a, b} and B = {b, c}.
+      The element a belongs only to A, the element c belongs only
+      to B, and b belongs to both.
+    </p>
+
+    <p class="formula">A ∪ B = {a, b, c}</p>
+    <p class="formula">A ∩ B = {b}</p>
+
+    <p>
+      Both operations keep b. The union also keeps a and c
+      because belonging to either set is enough.
+    </p>
+
+    <h2 id="theorem-5">Theorem 5: Union and Intersection of Nested Sets</h2>
+
+    <p>For any sets A and B, if A ⊆ B, then both equalities hold.</p>
+
+    <p class="formula">A ∩ B = A</p>
+    <p class="formula">A ∪ B = B</p>
+
+    <p>
+      Proof. Assume A ⊆ B. By the
+      <a href="./subsets.html">definition of a subset</a>,
+      whenever x belongs to A, it also belongs to B.
+    </p>
+
+    <p>
+      First consider A ∩ B. Every element of A ∩ B belongs to A,
+      so A ∩ B ⊆ A. For the reverse inclusion, take any x ∈ A.
+      Our assumption gives x ∈ B as well. Since x belongs to both
+      sets, x ∈ A ∩ B. This proves A ⊆ A ∩ B.
+      By <a href="./subsets.html#theorem-2">Theorem 2</a>, A ∩ B = A.
+    </p>
+
+    <p>
+      Now consider A ∪ B. Every element of B belongs to the union,
+      so B ⊆ A ∪ B. For the reverse inclusion, take any x ∈ A ∪ B.
+      Then x ∈ A or x ∈ B. If x ∈ A, our assumption gives x ∈ B.
+      If x ∈ B, we already have what we need. In either case x ∈ B,
+      so A ∪ B ⊆ B.
+      By <a href="./subsets.html#theorem-2">Theorem 2</a>, A ∪ B = B.
+    </p>
+  </article>
+</body>
+</html>
