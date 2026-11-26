@@ -56,6 +56,14 @@
 
    const cards = [
   {
+    id: "natural-numbers",
+    title: "Natural Numbers",
+    type: "Definition & Proof",
+    file: "./cards/natural-numbers.html",
+    x: 340,
+    y: 800
+  },
+  {
     id: "union-and-intersection",
     title: "Union and Intersection",
     type: "Definition & Proof",
@@ -98,6 +106,7 @@
 ];
 
 const links = [
+  { from: "union-and-intersection", to: "natural-numbers" },
   { from: "subsets", to: "union-and-intersection" },
   { from: "subsets", to: "power-set" },
   { from: "logic", to: "zfc" },
