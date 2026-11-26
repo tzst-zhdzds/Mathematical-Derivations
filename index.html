@@ -56,6 +56,14 @@
 
    const cards = [
   {
+    id: "union-and-intersection",
+    title: "Union and Intersection",
+    type: "Definition & Proof",
+    file: "./cards/union-and-intersection.html",
+    x: 340,
+    y: 600
+  },
+  {
     id: "power-set",
     title: "Power Sets",
     type: "Definition & Proof",
@@ -90,6 +98,7 @@
 ];
 
 const links = [
+  { from: "subsets", to: "union-and-intersection" },
   { from: "subsets", to: "power-set" },
   { from: "logic", to: "zfc" },
   { from: "zfc", to: "subsets" }
