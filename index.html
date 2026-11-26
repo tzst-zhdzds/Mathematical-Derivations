@@ -56,6 +56,14 @@
 
    const cards = [
   {
+    id: "functions",
+    title: "Functions",
+    type: "Definition & Proof",
+    file: "./cards/functions.html",
+    x: 0,
+    y: 1000
+  },
+  {
     id: "cartesian-product",
     title: "Ordered Pairs and Cartesian Products",
     type: "Definition & Proof",
@@ -122,6 +130,8 @@
 ];
 
 const links = [
+  { from: "cartesian-product", to: "functions" },
+  { from: "natural-numbers", to: "functions" },
   { from: "power-set", to: "cartesian-product" },
   { from: "union-and-intersection", to: "cartesian-product" },
   { from: "natural-numbers", to: "mathematical-induction" },
