@@ -75,8 +75,7 @@
     <p>
       In ZFC, our variables stand for sets. We take "set" and
       "is an element of" as basic ideas. A set can itself be an
-      element of another set. Usually we use lower case letter for elements, 
-      and upper case letter for Sets.
+      element of another set. In x ∈ A, both x and A are sets. The statement says that x is an element of A. Capitalization is only a naming convention.
     </p>
 
     <p class="formula">x ∈ A</p>
@@ -93,6 +92,12 @@
       can name the same object. We write A ≠ B when A and B are
       different objects.
     </p>
+
+    <p>
+  Every object equals itself, so x = x is always true.
+  If A = B, we can replace A with B in a statement without changing
+  its truth value. For example, if x ∈ A and A = B, then x ∈ B.
+</p>
 
     <h2 id="axiom-1">Axiom 1: The Axiom of Extensionality</h2>
 
@@ -185,11 +190,18 @@
     <h2 id="axiom-3">Axiom 3: Pairing</h2>
 
     <p>
-      Given any sets a and b, there exists a set whose elements are
-      exactly a and b. We write this set as {a, b}. If we use a for
-      both inputs, the result has a as its only element. We write
-      this set as {a}.
-    </p>
+  Given any sets a and b, Axiom 3 gives us a set whose elements
+  are exactly a and b. If two sets both fit this description,
+  they have exactly the same elements. By
+  Axiom 1, they are equal.
+  We write this unique set as {a, b}.
+</p>
+
+<p>
+  Taking b = a gives a set whose only element is a.
+  We write it as {a}. A set with exactly one element is called
+  a singleton.
+</p>
 
     <p>
       For example, {∅} has one element, namely ∅. The empty set
@@ -199,7 +211,11 @@
 
     <p class="formula">∅ ∈ {∅} and ∅ ∉ ∅.</p>
 
-    <p>By extensionality, Therefore, ∅ ≠ {∅}.</p>
+    <p>
+  Suppose ∅ = {∅}. We know that ∅ ∈ {∅}.
+  Replacing {∅} on the right with its equal, ∅, gives ∅ ∈ ∅.
+  But the empty set has no elements. Therefore, ∅ ≠ {∅}.
+</p>
 
     <h2 id="axiom-4">Axiom 4: Union</h2>
 
