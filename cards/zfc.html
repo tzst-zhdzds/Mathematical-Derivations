@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ZFC Axioms</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2 {
+      line-height: 1.35;
+    }
+
+    h2 {
+      margin-top: 2em;
+    }
+
+    a {
+      color: #27634b;
+    }
+
+    .formula {
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      background: #f3f6f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">Back to home page</a>
+  </nav>
+
+  <article>
+    <h1>ZFC Axioms</h1>
+
+    <p>
+      To reason about sets,
+      we need some starting assumptions about sets themselves.
+      We call these assumptions axioms.
+    </p>
+
+    <p>
+      We will start with an example of how to use
+      an axiom, then look at what each of the other axioms lets us do.
+    </p>
+
+    <h2>The Language of Sets</h2>
+
+    <p>
+      In ZFC, our variables stand for sets. We take "set" and
+      "is an element of" as basic ideas. A set can itself be an
+      element of another set. Usually we use lower case letter for elements, 
+      and upper case letter for Sets.
+    </p>
+
+    <p class="formula">x ∈ A</p>
+
+    <p>
+      Read this as "x is an element of A" or "x belongs to A."
+      And for its negate, we write x ∉ A as a shorter way to write ¬(x ∈ A).
+    </p>
+
+    <p class="formula">A = B</p>
+
+    <p>
+      Read this as "A and B are the same set." Two different letters
+      can name the same object. We write A ≠ B when A and B are
+      different objects.
+    </p>
+
+    <h2 id="axiom-1">Axiom 1: The Axiom of Extensionality</h2>
+
+    <p>
+      If A and B have exactly the same elements, then A = B.
+      We can write this using the symbols from Basic Logic.
+    </p>
+
+    <p class="formula">
+      ∀A ∀B ([∀x (x ∈ A ⇔ x ∈ B)] ⇒ A = B)
+    </p>
+
+    <p>Read the statement from the outside in.</p>
+
+    <ul>
+      <li>
+        ∀A ∀B means that we may take any sets A and B.
+      </li>
+      <li>
+        ∀x (x ∈ A ⇔ x ∈ B) is the condition we must check.
+        Every element of A belongs to B, and every element of B
+        belongs to A.
+      </li>
+      <li>
+        ⇒ A = B gives the conclusion we may draw once we have
+        established that condition.
+      </li>
+    </ul>
+
+    <h2>Why Is the Empty Set Unique?</h2>
+
+    <p>
+      Suppose E and F are both sets with no elements. Could they
+      be different sets? Pick any x. The statement x ∈ E is false,
+      and x ∈ F is also false. From our truth table, an "if and
+      only if" statement is true when both sides are false. Thus,
+      for every x, we have
+    </p>
+
+    <p class="formula">x ∈ E ⇔ x ∈ F.</p>
+
+    <p>
+      By extensionality, E = F. We have proved that there can be
+      at most one set with no elements. Our proof began with
+      "suppose E and F are both sets with no elements."
+      How do we know that even one such set exists?
+    </p>
+
+    <h2 id="axiom-2">Axiom 2: Separation and the Existence of the Empty Set</h2>
+
+    <p>
+      Start with a set A and a condition written in the language of
+      set theory. Separation says that there exists a set containing
+      exactly those elements of A that satisfy the condition.
+    </p>
+
+    <p>
+      To construct a set with no elements, start with any set A.
+      We can do this because the first-order logic used by ZF assumes
+      that there is at least one object, and in ZF every object is a set.
+      Now keep an element x of A only if x ≠ x. (ZF is ZFC but without axiom of choice, you will see it later.)
+    </p>
+
+    <p>
+      Every object equals itself, so no element passes the test.
+      Separation guarantees that the result of filtering A is still
+      a set. We have therefore found a set with no elements.
+    </p>
+
+    <p>
+      Separation gives existence. Extensionality gives uniqueness.
+      We can now call this set the empty set and give it a symbol.
+    </p>
+
+    <p class="formula">∅</p>
+
+    <h2 id="theorem-1">Theorem 1: There Is Exactly One Empty Set</h2>
+
+    <p>
+      By <a href="#axiom-2">Axiom 2</a>, there exists a set with no elements.
+      By <a href="#axiom-1">Axiom 1</a>, any two sets with no elements are equal.
+      Therefore, there is exactly one empty set.
+    </p>
+
+    <p>
+      Some presentations of ZF include the existence of the empty set
+      as an explicit axiom. Here we derived it using Separation.
+    </p>
+
+    <h2 id="axiom-3">Axiom 3: Pairing</h2>
+
+    <p>
+      Given any sets a and b, there exists a set whose elements are
+      exactly a and b. We write this set as {a, b}. If we use a for
+      both inputs, the result has a as its only element. We write
+      this set as {a}.
+    </p>
+
+    <p>
+      For example, {∅} has one element, namely ∅. The empty set
+      itself has no elements. We can tell them apart by checking
+      whether ∅ belongs to each one.
+    </p>
+
+    <p class="formula">∅ ∈ {∅} and ∅ ∉ ∅.</p>
+
+    <p>By extensionality, Therefore, ∅ ≠ {∅}.</p>
+
+    <h2 id="axiom-4">Axiom 4: Union</h2>
+
+    <p>
+      Given a set F, there exists a set containing exactly those
+      objects that belong to some member of F. To find them, look
+      inside each member of F.
+    </p>
+
+    <p>
+      For example, Pairing gives us F = {A, B}. Its members are
+      A and B. Looking inside them collects everything that belongs
+      to A or to B, including anything that belongs to both.
+      We call the resulting set the union of A and B and write A ∪ B.
+    </p>
+
+    <p class="formula">x ∈ A ∪ B ⇔ (x ∈ A ∨ x ∈ B)</p>
+
+    <h2 id="axiom-5">Axiom 5: Power Set</h2>
+
+    <p>
+      A set B is a subset of A if every element of B also belongs
+      to A. We write this as B ⊆ A.
+    </p>
+
+    <p>
+      The Power Set Axiom says that for every set A, there exists
+      a set whose elements are exactly all subsets of A. We call it
+      the power set of A and write P(A).
+    </p>
+
+    <p class="formula">B ∈ P(A) ⇔ B ⊆ A</p>
+
+    <h2 id="axiom-6">Axiom 6: Infinity</h2>
+
+    <p>
+      Given a set x, Pairing lets us form {x}. Taking the union
+      x ∪ {x} keeps every element of x and includes x itself as
+      an element. We call the result the successor of x.
+    </p>
+
+    <p class="formula">S(x) = x ∪ {x}</p>
+
+    <p>
+      The Axiom of Infinity says that there exists a set I with
+      both of the following properties.
+    </p>
+
+    <ul>
+      <li>∅ belongs to I.</li>
+      <li>Whenever x belongs to I, its successor S(x) also belongs to I.</li>
+    </ul>
+
+    <p>
+      For example, since ∅ belongs to I, its successor must also
+      belong to I. We can apply the same rule again to that successor.
+      Later, we will use I to construct the set of natural numbers.
+    </p>
+
+    <h2 id="axiom-7">Axiom 7: Replacement</h2>
+
+    <p>
+      Suppose we have a set A and a rule expressed in the language
+      of set theory. If the rule assigns exactly one output to each
+      element of A, Replacement says that all the resulting outputs
+      form a set.
+    </p>
+
+    <p>
+      For example, the rule might assign {x} to each x in A.
+      Replacement lets us collect all those singletons into a set,
+      even when the singletons themselves do not belong to A.
+    </p>
+
+    <p>
+      Separation and Replacement are called axiom schemas.
+      Each describes a pattern. Substituting a particular allowed
+      formula into the pattern gives an axiom.
+    </p>
+
+    <h2 id="axiom-8">Axiom 8: Foundation</h2>
+
+    <p>
+      A set is nonempty if it has at least one element. Foundation
+      says that every nonempty set A has some element b such that
+      b and A have no element in common.
+    </p>
+
+    <p>
+      For example, could a set x belong to itself? Suppose x ∈ x
+      and form A = {x}. The set A is nonempty, so Foundation applies.
+      Its only element is x, so x would have to be the element
+      that has nothing in common with A.
+    </p>
+
+    <p>
+      But x ∈ x by our assumption, and x ∈ A because A = {x}.
+      Thus x is an element common to both x and A. This contradiction
+      shows that no set belongs to itself.
+    </p>
+
+    <h2 id="axiom-9">Axiom 9: The Axiom of Choice</h2>
+
+    <p>
+      The C in ZFC stands for Choice. Suppose F is a set and every
+      member of F is nonempty. The Axiom of Choice says that there
+      exists a single assignment that selects one element from each
+      member of F. Later, we will call this assignment a choice function.
+    </p>
+
+    <p>
+      Why is this different from saying "pick any x" in a proof?
+      When we proved uniqueness of the empty set, we considered an
+      arbitrary x so that our reasoning would apply to every x.
+      We only needed to compare the statements x ∈ E and x ∈ F.
+    </p>
+
+    <p>
+      Choice addresses a different question. For each member of F,
+      we know that at least one element is available. Can all those
+      selections be made together in one assignment, even if we
+      have no particular selection rule in mind? The Axiom of Choice
+      says yes.
+    </p>
+  </article>
+</body>
+</html>
