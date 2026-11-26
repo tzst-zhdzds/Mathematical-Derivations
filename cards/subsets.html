@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Subsets</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2 {
+      line-height: 1.35;
+    }
+
+    h2 {
+      margin-top: 2em;
+    }
+
+    a {
+      color: #27634b;
+    }
+
+    .formula {
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      background: #f3f6f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">Back to home page</a>
+  </nav>
+
+  <article>
+    <h1>Subsets</h1>
+
+    <h2>Definition</h2>
+
+    <p>
+      Let A and B be sets. We say that A is a subset of B if every
+      element of A also belongs to B. We write A ⊆ B.
+    </p>
+
+    <p class="formula">A ⊆ B ⇔ ∀x (x ∈ A ⇒ x ∈ B)</p>
+
+    <p>
+      For example, take distinct sets a and b. By
+      <a href="./zfc.html#axiom-3">Axiom 3</a>, we can form
+      A = {a} and B = {a, b}. The only element of A is a, and a
+      belongs to B. Therefore, A ⊆ B.
+    </p>
+
+    <p>
+      Does B ⊆ A also hold? To test this direction, start with an
+      element of B. The element b belongs to B, but it does not
+      belong to A because the only element of A is a and b ≠ a.
+      This one counterexample shows that B ⊆ A is false.
+    </p>
+
+    <h2 id="theorem-2">Theorem 2: Equality by Mutual Inclusion</h2>
+
+    <p>Two sets are equal if and only if each is a subset of the other.</p>
+
+    <p class="formula">A = B ⇔ (A ⊆ B ∧ B ⊆ A)</p>
+
+    <p>
+      Proof, forward direction. Assume A = B. If x ∈ A, replacing
+      A with B gives ∀x ∈ B. This proves A ⊆ B. Likewise, if ∀x ∈ B,
+      replacing B with A gives x ∈ A. This proves B ⊆ A.
+    </p>
+
+    <p>
+      Proof, reverse direction. Assume A ⊆ B and B ⊆ A. Pick any x.
+      Each inclusion gives us one implication about this same x.
+    </p>
+
+    <ul>
+      <li>From A ⊆ B, we get x ∈ A ⇒ x ∈ B.</li>
+      <li>From B ⊆ A, we get x ∈ B ⇒ x ∈ A.</li>
+    </ul>
+
+    <p>
+      Together, the two implications give x ∈ A ⇔ x ∈ B.
+      Since x was arbitrary, A and B have exactly the same elements.
+      By <a href="./zfc.html#axiom-1">Axiom 1</a>, A = B.
+      This proves the reverse direction.
+    </p>
+
+    <h2 id="theorem-3">Theorem 3: The Empty Set Is a Subset of Every Set</h2>
+
+    <p class="formula">∀A (∅ ⊆ A)</p>
+
+    <p>
+      Proof. Let A be any set. By the definition of a subset,
+      our goal is to prove the following statement.
+    </p>
+
+    <p class="formula">∀x (x ∈ ∅ ⇒ x ∈ A)</p>
+
+    <p>
+      When would this fail? There would have to be an x for which
+      x ∈ ∅ is true and x ∈ A is false. By
+      <a href="./zfc.html#theorem-1">Theorem 1</a>, ∅ is the unique
+      set with no elements. Thus x ∈ ∅ is false for every x.
+      The implication holds for every x, so ∅ ⊆ A.
+    </p>
+
+    <h2>Membership and Inclusion</h2>
+
+    <p>
+      Take A = ∅ in <a href="#theorem-3">Theorem 3</a>.
+      We now have two statements about the same set:
+    </p>
+
+    <p class="formula">∅ ⊆ ∅</p>
+    <p class="formula">∅ ∉ ∅</p>
+
+    <p>
+      The first statement asks whether every element of the set on
+      the left belongs to the set on the right. There is no element
+      that could violate this condition.
+    </p>
+
+    <p>
+      The second statement asks whether the empty set itself appears
+      as an element inside the empty set. It has no elements at all,
+      so the answer is no.
+    </p>
+  </article>
+</body>
+</html>
