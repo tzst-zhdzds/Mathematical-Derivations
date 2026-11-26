@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Natural Numbers</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2 { line-height: 1.35; }
+    h2 { margin-top: 2em; }
+    a { color: #27634b; }
+
+    .formula {
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      background: #f3f6f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <nav><a href="../index.html">Back to home page</a></nav>
+
+  <article>
+    <h1>Natural Numbers</h1>
+
+    <h2>Zero and the Successor</h2>
+
+    <p>
+      We use sets to represent numbers. We write 0 for the empty set.
+      By <a href="./zfc.html#theorem-1">Theorem 1</a>,
+      there is exactly one empty set.
+    </p>
+
+    <p class="formula">0 = ∅</p>
+
+    <p>
+      Given any set x, <a href="./zfc.html#axiom-3">Axiom 3</a> gives
+      us the singleton {x}. We can now take the
+      <a href="./union-and-intersection.html">union</a> of x and {x}.
+      We call the result the successor of x and write S(x).
+    </p>
+
+    <p class="formula">S(x) = x ∪ {x}</p>
+
+    <p>
+      The left set contributes every element of x. The right set
+      contributes its only element, x itself. Starting from 0,
+      we give the first successors the names 1, 2, and 3.
+    </p>
+
+    <p class="formula">1 = S(0) = ∅ ∪ {0} = {0} = {∅}</p>
+    <p class="formula">2 = S(1) = {0} ∪ {1} = {0, 1}</p>
+    <p class="formula">3 = S(2) = {0, 1} ∪ {2} = {0, 1, 2}</p>
+
+    <p>
+      Look at the step from 1 to 2. The set 1 already contains 0.
+      Taking its union with {1} keeps 0 and adds 1 itself.
+      Since 1 = {∅}, another way to write 2 is {∅, {∅}}.
+    </p>
+
+    <h2 id="inductive-sets">Inductive Sets</h2>
+
+    <p>We call a set I inductive if it satisfies both conditions below.</p>
+
+    <ul>
+      <li>0 ∈ I.</li>
+      <li>For every x, if x ∈ I, then S(x) ∈ I.</li>
+    </ul>
+
+    <p>
+      By <a href="./zfc.html#axiom-6">Axiom 6</a>, at least one
+      inductive set exists. Every such set contains 0. It must then
+      contain S(0), which is 1. Since it contains 1, it must also
+      contain S(1), which is 2.
+    </p>
+
+    <p>
+      These conditions tell us which elements must be included.
+      They allow an inductive set to have other elements as well.
+      Can we find an inductive set that is contained in every
+      inductive set? This is what "least" means here.
+    </p>
+
+    <h2 id="theorem-6">Theorem 6: There Is a Unique Least Inductive Set</h2>
+
+    <p>
+      Proof. Choose one inductive set I. We will build a set N
+      from the elements of I, then prove that it has the required
+      properties.
+    </p>
+
+    <p>
+      First, consider the inductive subsets of I. The set I itself
+      is one such subset. For each x in I, keep x exactly when it belongs
+      to every inductive subset of I.
+      By <a href="./zfc.html#axiom-2">Axiom 2</a>, the elements
+      that pass this test form a set N.
+    </p>
+
+    <p class="formula">
+      x ∈ N ⇔ (x ∈ I and x belongs to every inductive subset of I).
+    </p>
+
+    <p>Why is N inductive? Check the two conditions separately.</p>
+
+    <ul>
+      <li>
+        0 belongs to I. Every inductive subset of I also contains 0
+        by definition. Thus 0 passes the test, so 0 ∈ N.
+      </li>
+      <li>
+        Suppose x ∈ N. Then x ∈ I, so S(x) ∈ I because I is inductive.
+        Now take any inductive subset J of I. Since x ∈ N, we have
+        x ∈ J. Since J is inductive, S(x) ∈ J as well. Thus S(x)
+        belongs to I and to every inductive subset of I, so S(x) ∈ N.
+      </li>
+    </ul>
+
+    <p>
+      Why is N contained in every inductive set? Take any inductive
+      set K. Our test only mentioned subsets of I, so consider the
+      intersection I ∩ K. It contains 0 because I and K both contain 0.
+      If x ∈ I ∩ K, then x belongs to both sets. Both are inductive,
+      so S(x) also belongs to both. Hence I ∩ K is inductive.
+    </p>
+
+    <p>
+      The intersection I ∩ K is a subset of I, so it is one of the
+      sets used in our test. Every element of N therefore belongs
+      to I ∩ K, and hence to K. This proves N ⊆ K for every
+      inductive set K.
+    </p>
+
+    <p>
+      Finally, suppose M is also a least inductive set. Since M is
+      inductive and N is least, N ⊆ M. Since N is inductive and M
+      is least, M ⊆ N. By
+      <a href="./subsets.html#theorem-2">Theorem 2</a>, N = M.
+    </p>
+
+    <h2>The Set of Natural Numbers</h2>
+
+    <p>
+      We call the unique least inductive set the set of natural
+      numbers and write it as ℕ. A natural number is an element of ℕ.
+      In particular, 0 ∈ ℕ, and whenever n ∈ ℕ, we also have S(n) ∈ ℕ.
+    </p>
+  </article>
+</body>
+</html>
