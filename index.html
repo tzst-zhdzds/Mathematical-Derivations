@@ -56,6 +56,14 @@
 
    const cards = [
   {
+    id: "power-set",
+    title: "Power Sets",
+    type: "Definition & Proof",
+    file: "./cards/power-set.html",
+    x: 0,
+    y: 600
+  },
+  {
     id: "subsets",
     title: "Subsets",
     type: "Definition & Proof",
@@ -82,6 +90,7 @@
 ];
 
 const links = [
+  { from: "subsets", to: "power-set" }
   { from: "logic", to: "zfc" },
   { from: "zfc", to: "subsets" }
 ];
