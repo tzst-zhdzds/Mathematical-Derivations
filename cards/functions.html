@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Functions</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2 {
+      line-height: 1.35;
+    }
+
+    h2 {
+      margin-top: 2em;
+    }
+
+    a {
+      color: #27634b;
+    }
+
+    .formula {
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      background: #f3f6f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">Back to home page</a>
+  </nav>
+
+  <article>
+    <h1>Functions</h1>
+
+    <h2>One Output for Each Input</h2>
+
+    <p>
+      Let A and B be sets. By
+      <a href="./cartesian-product.html#theorem-10">Theorem 10</a>,
+      the Cartesian product A × B is the set of all ordered pairs
+      (x, y) with x ∈ A and y ∈ B. Think of x as an input and
+      y as a possible output.
+    </p>
+
+    <p>
+  Choose a subset of A × B and call it R. Its elements are
+  ordered pairs. We call such a subset a relation from A to B.
+  Writing (x, y) ∈ R means that we included the pair (x, y)
+  in our selection.
+</p>
+
+<p>
+  A function from A to B is a relation f with one additional
+  requirement. For every input x ∈ A, there must be exactly
+  one output y ∈ B such that (x, y) ∈ f.
+</p>
+
+    <p class="formula">f: A → B</p>
+
+    <p>
+      We call A the domain and B the codomain. For each input x ∈ A,
+      we write f(x) for its unique output. The set of all the
+      input-output pairs is called the graph of the function.
+      Here we represent a function by its graph.
+    </p>
+
+    <p class="formula">f(x) = y ⇔ (x, y) ∈ f</p>
+
+    <h2>Reading a Function from Its Pairs</h2>
+
+    <p>Let A = B = {0, 1}. Consider the following set of pairs.</p>
+
+    <p class="formula">f = {(0, 1), (1, 1)}</p>
+
+    <p>
+      To find f(0), look for the pair whose first entry is 0.
+      That pair is (0, 1), so f(0) = 1. The pair starting with 1
+      is (1, 1), so f(1) = 1 as well.
+    </p>
+
+    <p>
+      Both inputs have the same output. This is allowed because
+      each input still has exactly one output. The value 0 belongs
+      to the codomain even though no input has 0 as its output.
+    </p>
+
+    <p>
+      Keeping the same domain and codomain, we can see why both
+      parts of "exactly one" matter.
+    </p>
+
+    <ul>
+      <li>
+        If we remove (1, 1), only (0, 1) remains. The input 1
+        now has no output, so the remaining pairs do not define
+        a function from A to B.
+      </li>
+      <li>
+        If we instead add (0, 0) to the original graph, then both
+        (0, 1) and (0, 0) appear. The input 0 now has two different
+        outputs, so this graph also fails to define a function from A to B.
+      </li>
+    </ul>
+
+    <h2 id="theorem-11">Theorem 11: A Rule Determines a Function</h2>
+
+    <p>
+      Fix sets A and B. Let R(x, y) stand for a condition on x and y
+      written in the language of set theory. Suppose that for each
+      x ∈ A, exactly one y ∈ B satisfies this condition.
+      Then there is a unique function f: A → B such that, for all
+      x ∈ A and y ∈ B,
+    </p>
+
+    <p class="formula">f(x) = y ⇔ R(x, y).</p>
+
+    <p>
+      Proof. Start with A × B. By
+      <a href="./cartesian-product.html#theorem-9">Theorem 9</a>,
+      each ordered pair has a uniquely determined first entry x
+      and second entry y. We can therefore test whether R(x, y)
+      holds for that pair. By
+      <a href="./zfc.html#axiom-2">Axiom 2</a>, the pairs that
+      pass this test form a set. Call it f.
+    </p>
+
+    <p>
+      Why does every input have an output? Fix x ∈ A. By our
+      assumption, some y ∈ B satisfies R(x, y). The pair (x, y)
+      belongs to A × B and passes the test, so (x, y) ∈ f.
+    </p>
+
+    <p>
+      Why is that output unique? Suppose (x, z) also belongs to f.
+      Then R(x, z) holds. Our assumption says that exactly one
+      element of B satisfies the condition for this x. Since y and z
+      both satisfy it, z = y. Thus f is a function from A to B.
+    </p>
+
+    <p>
+      Finally, suppose g: A → B satisfies the same rule. A pair
+      (x, y) belongs to g exactly when R(x, y) holds, which is
+      exactly when it belongs to f. The graphs contain the same
+      pairs, so by <a href="./zfc.html#axiom-1">Axiom 1</a>,
+      f = g.
+    </p>
+
+    <h2>The Successor Function</h2>
+
+    <p>
+      Take A = B = ℕ and use the condition y = S(n).
+      For each natural number n, the definition S(n) = n ∪ {n}
+      gives one particular set. By
+      <a href="./natural-numbers.html#theorem-6">Theorem 6</a>,
+      ℕ is inductive, so this set belongs to ℕ.
+    </p>
+
+    <p>
+      Thus each input n ∈ ℕ has exactly one output in ℕ.
+      By <a href="#theorem-11">Theorem 11</a>, the pairs (n, S(n))
+      form the graph of a function. We call it the successor function.
+    </p>
+
+    <p class="formula">S: ℕ → ℕ</p>
+
+    <p>
+      For example, (0, 1) belongs to its graph because S(0) = 1,
+      and (1, 2) belongs to its graph because S(1) = 2.
+    </p>
+  </article>
+</body>
+</html>
