@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Basic Logic</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.35;
+    }
+
+    h2 {
+      margin-top: 2em;
+    }
+
+    a {
+      color: #27634b;
+    }
+
+    .formula {
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      background: #f3f6f1;
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1em 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    caption {
+      margin-bottom: 8px;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 8px 4px;
+      text-align: center;
+      border: 1px solid #d8dfd6;
+    }
+
+    thead {
+      background: #edf2ea;
+    }
+
+    details {
+      margin: 1em 0;
+      padding: 10px 14px;
+      border: 1px solid #d8dfd6;
+      border-radius: 8px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">Back to home page</a>
+  </nav>
+
+  <article>
+    <h1>Basic Logic</h1>
+
+    <h2>Statements and Truth Values</h2>
+
+    <p>
+      A statement is a sentence that can be true or false.
+      Example: The sentence "The box is locked" is a statement. It has a truth value even
+      if we have not checked the box yet.
+    </p>
+
+    <p>
+      We can use letters as short names for statements. For the box
+      example, let P mean "The box is locked" and
+      Q mean "The light is on."
+    </p>
+
+    <h2>Not, And, and Or</h2>
+
+    <ul>
+      <li>
+        ¬P means "not P." In our example, it says
+        that the box is not locked. It is true exactly when P is false.
+      </li>
+      <li>
+        P ∧ Q means "P and Q." It is true exactly
+        when the box is locked and the light is on.
+      </li>
+      <li>
+        P ∨ Q means "P or Q." It is true when the
+        box is locked, the light is on, or both. In mathematics,
+        "or" includes the case where both statements are true.
+      </li>
+    </ul>
+
+    <h2>If P, Then Q</h2>
+
+    <p class="formula">P ⇒ Q</p>
+
+    <p>
+      Read this as "if P, then Q" or "P implies Q."
+      In our example, the claim is that whenever the box is locked,
+      the light is on. What observation would show that the claim is false?
+    </p>
+
+    <p>
+      We would have to find the box locked and the
+      light off. That is the only case where P is true
+      and Q is false. If the box is unlocked, the claim places no
+      requirement on the light. In classical logic, the implication
+      is true in both unlocked cases.
+    </p>
+
+    <p>
+      We can now answer the opening question. Knowing P ⇒ Q and P
+      lets us conclude Q. But if all we know is P ⇒ Q and the light
+      is on, the box could still be unlocked.
+    </p>
+
+    <h2>If and Only If</h2>
+
+    <p class="formula">P ⇔ Q</p>
+
+    <p>
+      Read this as "P if and only if Q," often shortened to "P iff Q."
+      It says that both directions hold.
+    </p>
+
+    <ul>
+      <li>P ⇒ Q. If the box is locked, the light is on.</li>
+      <li>Q ⇒ P. If the light is on, the box is locked.</li>
+    </ul>
+
+    <p>
+      Now the light alone tells us whether the box is locked.
+      To prove an "if and only if" statement, we must justify both directions.
+      The table below shows how this differs from proving one implication.
+    </p>
+
+    <table>
+      <caption>Truth table. T means true and F means false.</caption>
+      <thead>
+        <tr>
+          <th scope="col">P</th>
+          <th scope="col">Q</th>
+          <th scope="col">P ⇒ Q</th>
+          <th scope="col">Q ⇒ P</th>
+          <th scope="col">P ⇔ Q</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+        <tr><td>T</td><td>F</td><td>F</td><td>T</td><td>F</td></tr>
+        <tr><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td></tr>
+        <tr><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+      </tbody>
+    </table>
+
+    <h2>For Every and There Exists</h2>
+
+    <p>
+      Imagine a tray of keys and a particular door. Let x stand for
+      any key on the tray. Write P(x) for the condition "x opens
+      the door." The answer can change with the key we put in place of x.
+      Such a condition is called a predicate.
+    </p>
+
+    <p class="formula">∀x P(x)</p>
+
+    <p>
+      The symbol ∀ means "for every."
+      Here the statement says that every key on the tray opens the door.
+      A single key that fails to open it would make this statement false.
+      Such a key would be a counterexample.
+    </p>
+
+    <p class="formula">∃x P(x)</p>
+
+    <p>
+      The symbol ∃ means "there exists at least one."
+      Here the statement says that some key on the tray opens the door.
+      To prove it, we could show that the brass key opens the door.
+      The brass key would be a witness. Other keys may
+      open the door too.
+    </p>
+
+    <h2>Meaning of "For all x" in the Proof</h2>
+
+    <p>
+      Suppose our goal is ∀x P(x). We begin, "Let x be any key on the
+      tray." We may use facts that hold for every key under discussion.
+      If those facts let us prove P(x), the argument works whichever key
+      x stands for. This is why we can conclude ∀x P(x).
+    </p>
+
+    <p>
+      If our argument uses a special fact about the brass key, it proves
+      something about that key. That can be enough for ∃x P(x).
+      To conclude ∀x P(x), we also need a reason the argument covers
+      every other key.
+    </p>
+
+    <h2>Negate a Quantified Statement</h2>
+
+    <p>
+      "Not every key opens the door" means that at least one key fails.
+      "No key opens the door" means that every key fails.
+      In symbols, these are two different claims:
+    </p>
+
+    <p class="formula">¬(∀x P(x)) ⇔ ∃x ¬P(x)</p>
+    <p class="formula">¬(∃x P(x)) ⇔ ∀x ¬P(x)</p>
+
+    <h2>Why the Order of Quantifiers Matters</h2>
+
+<p>
+  Imagine a front door and a back door. The brass key opens only the
+  front door. The silver key opens only the back door. These are the
+  only doors and keys in our example.
+</p>
+
+<p>Consider these two statements.</p>
+
+<ol>
+  <li>Every door has a key that opens it.</li>
+  <li>There is a key that opens every door.</li>
+</ol>
+
+<p>
+  The first statement is true. If you point to the front door,
+  I can show you the brass key. If you point to the back door,
+  I can show you the silver key. My answer can depend on which
+  door you point to.
+</p>
+
+<p>
+  The second statement is false. This time I have to name a key
+  first. If I name the brass key, it fails at the back door.
+  If I name the silver key, it fails at the front door.
+</p>
+
+<p>
+  Now let d stand for a door and k stand for a key.
+  We can shorten each sentence by writing just its quantifiers
+  in symbols. Read from left to right.
+</p>
+
+<p class="formula">∀d ∃k [k opens d]</p>
+<p>For every door d, there is a key k that opens d.</p>
+
+<p class="formula">∃k ∀d [k opens d]</p>
+<p>There is a key k such that, for every door d, that key opens d.</p>
+
+  </article>
+</body>
+</html>
