@@ -56,6 +56,14 @@
 
    const cards = [
   {
+    id: "relations",
+    title: "Relations and Equivalence Relations",
+    type: "Definition",
+    file: "./cards/relations.html",
+    x: -200,
+    y: 900
+  },
+  {
     id: "formal-differences",
     title: "Additive Cancellation and Formal Differences",
     type: "Definition & Proof",
@@ -100,7 +108,7 @@
     title: "Recursion on the Natural Numbers",
     type: "Theorem & Proof",
     file: "./cards/recursion.html",
-    x: 170,
+    x: 0,
     y: 1200
   },
   {
@@ -178,6 +186,7 @@
 ];
 
 const links = [
+  
   { from: "addition-laws", to: "formal-differences" },
   { from: "addition-laws", to: "multiplication-laws" },
   { from: "multiplication", to: "multiplication-laws" },
@@ -186,7 +195,10 @@ const links = [
   { from: "recursion", to: "addition" },
   { from: "functions", to: "recursion" },
   { from: "mathematical-induction", to: "recursion" },
-  { from: "cartesian-product", to: "functions" },
+  { from: "cartesian-product", to: "relations" },
+  { from: "relations", to: "formal-differences" },
+  { from: "relations", to: "recursion" },
+  { from: "relations", to: "functions" },
   { from: "natural-numbers", to: "functions" },
   { from: "power-set", to: "cartesian-product" },
   { from: "union-and-intersection", to: "cartesian-product" },
