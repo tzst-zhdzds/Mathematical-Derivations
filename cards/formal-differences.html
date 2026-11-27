@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Additive Cancellation and Formal Differences</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2 { line-height: 1.35; }
+    h2 { margin-top: 2em; }
+    a { color: #27634b; }
+
+    .formula {
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      background: #f3f6f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">Back to home page</a>
+  </nav>
+
+  <article>
+    <h1>Additive Cancellation and Formal Differences</h1>
+
+    <p>
+      Imagine taking one step backward. And in another situation imagine taking one step
+      forward and two steps backward. Starting from the same place,
+      both walks end at the same place. We can record them as (0, 1)
+      and (1, 2), with forward steps first and backward steps second.
+      How can we tell when two such records describe the same change
+      using only addition of natural numbers?
+    </p>
+
+    <h2 id="theorem-24">Theorem 24: Additive Cancellation</h2>
+
+    <p>
+      We will need to remove a common addend from an equality.
+      For all natural numbers a, b, and d,
+    </p>
+
+    <p class="formula">If a + d = b + d, then a = b.</p>
+
+    <p>
+      Proof. Fix a and b. Use
+      <a href="./mathematical-induction.html#theorem-7">Theorem 7</a>
+      to induct on the common addend d. The statement we are proving
+      at each d is the entire implication above.
+    </p>
+
+    <p>
+      Base case. Suppose a + 0 = b + 0. By
+      <a href="./addition.html#theorem-13">Theorem 13</a>,
+      the left side equals a and the right side equals b. Thus a = b.
+    </p>
+
+    <p>
+      Induction step. Assume that a + d = b + d implies a = b.
+      To prove the implication at S(d), suppose
+    </p>
+
+    <p class="formula">a + S(d) = b + S(d).</p>
+
+    <p>
+      By Theorem 13, this says S(a + d) = S(b + d).
+      By <a href="./mathematical-induction.html#theorem-8">Theorem 8</a>,
+      this successor has only one predecessor. Therefore a + d = b + d.
+      This is exactly the condition in our induction hypothesis,
+      which now gives a = b.
+    </p>
+
+    <p>
+      A common addend on the left can also be cancelled. If
+      d + a = d + b, then
+      <a href="./addition-laws.html#theorem-16">Theorem 16</a>
+      gives a + d = b + d, so the result just proved gives a = b.
+    </p>
+
+    <h2>Comparing Two Formal Differences</h2>
+
+    <p>
+      Let D = ℕ × ℕ. We use a pair (a, b) in D as a formal
+      difference: a records forward steps and b records backward
+      steps. Adding the same number of forward and backward steps
+      to a walk leaves its endpoint unchanged.
+    </p>
+
+    <p>
+      To compare (a, b) with (c, d), give the first walk d extra
+      steps in each direction and the second walk b extra steps in
+      each direction. Their backward counts are now b + d and d + b,
+      which are equal by
+      <a href="./addition-laws.html#theorem-16">Theorem 16</a>.
+      Their forward counts are a + d and c + b. This suggests
+      the following definition.
+    </p>
+
+    <p class="formula">(a, b) ∼ (c, d) ⇔ a + d = c + b.</p>
+
+    <p>
+      Read ∼ as "is equivalent to". For the opening example,
+      (0, 1) ∼ (1, 2) because 0 + 2 = 1 + 1. Both sums equal 2.
+      The ordered pairs themselves are distinct by
+      <a href="./cartesian-product.html#theorem-9">Theorem 9</a>,
+      since their first entries differ.
+    </p>
+
+    <p>
+      This definition gives a relation on D. Indeed, D × D exists
+      by <a href="./cartesian-product.html#theorem-10">Theorem 10</a>.
+      By <a href="./zfc.html#axiom-2">Axiom 2</a>, we can select
+      exactly those pairs of records that pass the displayed test.
+    </p>
+
+    <h2 id="theorem-25">Theorem 25: Equivalence of Formal Differences</h2>
+
+    <p>
+      A relation is called an equivalence relation when it has
+      three properties: every record is related to itself
+      (reflexivity), a comparison can be reversed (symmetry),
+      and two comparisons can be chained (transitivity).
+      We claim that ∼ has all three properties.
+    </p>
+
+    <p>
+      Reflexivity. To check (a, b) ∼ (a, b), the definition asks
+      whether a + b = a + b. This holds for every pair (a, b).
+    </p>
+
+    <p>
+      Symmetry. Suppose (a, b) ∼ (c, d). Then a + d = c + b.
+      Reading the equality in reverse gives c + b = a + d,
+      exactly the condition for (c, d) ∼ (a, b).
+    </p>
+
+    <p>
+      Transitivity. Suppose (a, b) ∼ (c, d) and (c, d) ∼ (e, f).
+      Writing out these two assumptions gives
+    </p>
+
+    <p class="formula">a + d = c + b</p>
+    <p class="formula">c + f = e + d</p>
+
+    <p>
+      Our goal is (a, b) ∼ (e, f), which means a + f = e + b.
+      The first assumption tells us something about a + d,
+      but our goal contains a + f. To bring d into the calculation,
+      consider (a + f) + d. We can cancel d at the end by
+      <a href="#theorem-24">Theorem 24</a>.
+    </p>
+
+    <p>
+      We will exchange the last two terms of a sum several times.
+      This is allowed by
+      <a href="./addition-laws.html#theorem-17">Theorem 17</a>
+      for regrouping and Theorem 16 for exchanging two addends:
+    </p>
+
+    <p class="formula">
+      (x + y) + z = x + (y + z) = x + (z + y) = (x + z) + y.
+    </p>
+
+    <ol>
+      <li>
+        Start with (a + f) + d. Exchange f and d to get (a + d) + f.
+        The first assumption replaces a + d with c + b,
+        giving (c + b) + f.
+      </li>
+      <li>
+        Exchange b and f to get (c + f) + b.
+        The second assumption replaces c + f with e + d,
+        giving (e + d) + b.
+      </li>
+      <li>
+        Exchange d and b to get (e + b) + d.
+      </li>
+    </ol>
+
+    <p>We have proved</p>
+
+    <p class="formula">(a + f) + d = (e + b) + d.</p>
+
+    <p>
+      By <a href="#theorem-24">Theorem 24</a>, a + f = e + b.
+      Thus (a, b) ∼ (e, f). This proves transitivity and
+      completes the proof.
+    </p>
+
+    <p>
+      We now have a test for deciding which pairs belong together.
+      On the next card, we will collect all pairs equivalent to a
+      given pair into one set. That set will represent one integer.
+    </p>
+  </article>
+</body>
+</html>
