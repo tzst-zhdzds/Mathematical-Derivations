@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recursion on the Natural Numbers</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2 {
+      line-height: 1.35;
+    }
+
+    h2 {
+      margin-top: 2em;
+    }
+
+    a {
+      color: #27634b;
+    }
+
+    .formula {
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      background: #f3f6f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">Back to home page</a>
+  </nav>
+
+  <article>
+    <h1>Recursion on the Natural Numbers</h1>
+
+    <h2>Computing One Value from the Previous Value</h2>
+
+    <p>
+      Let X = {0, 1}. Define a function g: X → X by setting
+      g(0) = 1 and g(1) = 0. Applying g switches the value.
+    </p>
+
+    <p>
+      Suppose we want a function f that records the value after
+      each switch. Start with f(0) = 0. Once we know f(n),
+      apply g to get the value at the next input.
+    </p>
+
+    <p class="formula">f(S(n)) = g(f(n))</p>
+
+    <p>
+      The two sides describe different steps. On the left, S(n)
+      is the next input. On the right, f(n) is the current output,
+      and g tells us what to do with that output.
+    </p>
+
+    <p class="formula">f(1) = g(f(0)) = g(0) = 1</p>
+    <p class="formula">f(2) = g(f(1)) = g(1) = 0</p>
+    <p class="formula">f(3) = g(f(2)) = g(0) = 1</p>
+
+    <p>
+      These calculations determine the first few values. What
+      guarantees that the same instructions define a function on
+      all of ℕ, with exactly one output at every input?
+    </p>
+
+    <h2 id="theorem-12">Theorem 12: Recursion on the Natural Numbers</h2>
+
+    <p>
+      Let X be a set, let a ∈ X, and let g: X → X be a
+      <a href="./functions.html">function</a>. There exists a unique
+      function f: ℕ → X satisfying both equations below.
+    </p>
+
+    <p class="formula">f(0) = a</p>
+    <p class="formula">f(S(n)) = g(f(n)) for every n ∈ ℕ.</p>
+
+    <h2>Proof. Build the Graph</h2>
+
+    <p>
+      By <a href="./cartesian-product.html#theorem-10">Theorem 10</a>,
+      D = ℕ × X is a set. It contains every possible input-output
+      pair. We want to find the pairs that the two equations force
+      us to include.
+    </p>
+
+    <p>
+      What do the equations require of a graph?
+      Consider subsets of D that obey these two rules.
+    </p>
+
+    <ol>
+      <li>Include (0, a).</li>
+      <li>Whenever (n, y) is included, also include (S(n), g(y)).</li>
+    </ol>
+
+    <p>
+      D itself obeys both rules. In particular, if (n, y) ∈ D,
+      then S(n) ∈ ℕ and g(y) ∈ X, so (S(n), g(y)) ∈ D.
+      Using <a href="./zfc.html#axiom-2">Axiom 2</a>, keep a pair
+      in D exactly when it belongs to every subset of D that obeys
+      both rules. Call the resulting set F.
+    </p>
+
+    <p>
+      F contains (0, a) because every such subset contains it.
+      If (n, y) ∈ F, then every such subset contains (n, y),
+      so every one also contains (S(n), g(y)). Thus the next pair
+      belongs to F as well. This proves that F obeys both rules.
+      By construction, F is contained in every subset that obeys them.
+    </p>
+
+    <h2>Where Can a Pair in F Come From?</h2>
+
+    <p>
+      We know how to go forward from a pair in F. To prove that
+      an input cannot have two outputs, we also need to go backward.
+      Could F contain an extra pair that never came from either rule?
+    </p>
+
+    <p>
+      By <a href="./zfc.html#axiom-2">Axiom 2</a>, form a subset E
+      of F by keeping only the following pairs:
+    </p>
+
+    <ul>
+      <li>the starting pair (0, a),</li>
+      <li>any pair of the form (S(k), g(v)) for some (k, v) ∈ F.</li>
+    </ul>
+
+    <p>
+      E still obeys both rules. It contains (0, a). If (n, y) ∈ E,
+      then (n, y) ∈ F because E ⊆ F. Its next pair (S(n), g(y))
+      therefore belongs to F and is exactly the kind of pair we
+      kept in E.
+    </p>
+
+    <p>
+      Since E obeys both rules, the construction of F gives F ⊆ E.
+      We already have E ⊆ F, so
+      <a href="./subsets.html#theorem-2">Theorem 2</a> gives F = E.
+      Now we know that every pair in F is either the starting pair
+      or the next pair obtained from some pair in F.
+    </p>
+
+    <h2>Why Does Each Input Have Exactly One Output?</h2>
+
+    <p>
+      We use <a href="./mathematical-induction.html#theorem-7">Theorem 7</a>
+      to prove that for every n ∈ ℕ, exactly one y ∈ X satisfies
+      (n, y) ∈ F.
+    </p>
+
+    <p>
+      Base case. We have (0, a) ∈ F. Could another pair in F
+      start with 0? Every pair produced by the step rule starts
+      with a successor S(k). By
+      <a href="./mathematical-induction.html#theorem-8">Theorem 8</a>,
+      no successor equals 0. Thus the starting pair is the only
+      pair in F with first entry 0.
+    </p>
+
+    <p>
+      Induction step. Assume that y is the unique output at n.
+      Since (n, y) ∈ F, the step rule gives (S(n), g(y)) ∈ F.
+      This proves that S(n) has at least one output.
+    </p>
+
+    <p>
+      To check uniqueness, take any pair (S(n), w) ∈ F.
+      Since S(n) ≠ 0, it cannot be the starting pair. By F = E,
+      it must have come from some pair (k, v) ∈ F. Thus
+    </p>
+
+    <p class="formula">(S(n), w) = (S(k), g(v)).</p>
+
+    <p>
+      By <a href="./cartesian-product.html#theorem-9">Theorem 9</a>,
+      the first entries agree, so S(n) = S(k). By
+      <a href="./mathematical-induction.html#theorem-8">Theorem 8</a>,
+      this number has a unique predecessor, so k = n.
+      Now (k, v) ∈ F tells us that v is an output at n.
+      The induction hypothesis gives v = y. Comparing the second
+      entries of the displayed pairs gives w = g(v) = g(y).
+      Thus S(n) has exactly one output.
+    </p>
+
+    <p>
+      By induction, F gives exactly one output for every natural
+      number. It is therefore the graph of a function f: ℕ → X.
+      Its starting pair gives f(0) = a, and its step rule gives
+      f(S(n)) = g(f(n)).
+    </p>
+
+    <h2>Why Is the Function Unique?</h2>
+
+    <p>
+      Suppose h: ℕ → X satisfies the same two equations.
+      We prove by <a href="./mathematical-induction.html#theorem-7">Theorem 7</a>
+      that h(n) = f(n) for every n ∈ ℕ.
+      At 0, both functions have the value a.
+      If h(n) = f(n), applying g to these equal values gives
+    </p>
+
+    <p class="formula">h(S(n)) = g(h(n)) = g(f(n)) = f(S(n)).</p>
+
+    <p>
+      Thus h and f agree at every input. Their graphs contain
+      exactly the same ordered pairs, so
+      <a href="./zfc.html#axiom-1">Axiom 1</a> gives h = f.
+    </p>
+  </article>
+</body>
+</html>
