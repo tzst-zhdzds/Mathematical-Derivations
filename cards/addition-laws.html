@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laws of Addition</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2 {
+      line-height: 1.35;
+    }
+
+    h2 {
+      margin-top: 2em;
+    }
+
+    a {
+      color: #27634b;
+    }
+
+    .formula {
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      background: #f3f6f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">Back to home page</a>
+  </nav>
+
+  <article>
+    <h1>Laws of Addition</h1>
+
+    <p>
+      Does changing the order of two numbers change their sum?
+      Our definition of addition treats the two inputs differently.
+      In a + b, we start at a and take b successor steps.
+      To prove that we can exchange the inputs, we first need
+      to understand what happens when the starting number changes.
+    </p>
+
+    <h2 id="theorem-15">Theorem 15: A Successor in the First Input</h2>
+
+    <p>
+      By <a href="./addition.html#theorem-13">Theorem 13</a>,
+      a + S(b) = S(a + b). This tells us what happens when we
+      take one more step. What happens if we keep the number of
+      steps fixed and start at S(a) instead of a?
+      For all natural numbers a and b, we claim that
+    </p>
+
+    <p class="formula">S(a) + b = S(a + b).</p>
+
+    <p>
+      Proof. Fix a natural number a. We use
+      <a href="./mathematical-induction.html#theorem-7">Theorem 7</a>
+      to induct on b.
+    </p>
+
+    <p>
+      Base case. When b = 0, the left side is S(a) + 0 = S(a).
+      On the right, a + 0 = a, so S(a + 0) = S(a).
+      The two sides are equal.
+    </p>
+
+    <p>
+      Induction step. Assume S(a) + b = S(a + b).
+      To write our goal, replace b with S(b) on both sides
+      of that statement. We must show
+    </p>
+
+    <p class="formula">S(a) + S(b) = S(a + S(b)).</p>
+
+    <p>
+      Start with the left side. The step rule from
+      <a href="./addition.html#theorem-13">Theorem 13</a> says
+      x + S(y) = S(x + y) for any natural numbers x and y.
+      Here the whole first input is x = S(a), and y = b.
+      Substituting those values gives
+    </p>
+
+    <p class="formula">S(a) + S(b) = S(S(a) + b).</p>
+
+    <p>
+      Inside the outer S, we now see S(a) + b. Our induction
+      hypothesis says this equals S(a + b). Thus the left side
+      of our goal equals S(S(a + b)).
+    </p>
+
+    <p>
+      Now look at the right side of our goal, S(a + S(b)).
+      The expression inside the outer S is a + S(b).
+      By Theorem 13, it equals S(a + b). So the right side
+      also equals S(S(a + b)).
+    </p>
+
+    <p>
+      This proves the induction step. Therefore
+      S(a) + b = S(a + b) for all natural numbers a and b.
+    </p>
+
+    <h2 id="theorem-16">Theorem 16: Commutativity of Addition</h2>
+
+    <p>
+      Addition is commutative. This means that exchanging the two
+      inputs leaves the sum unchanged. For all natural numbers a and b,
+    </p>
+
+    <p class="formula">a + b = b + a.</p>
+
+    <p>
+      Proof. Fix a and use
+      <a href="./mathematical-induction.html#theorem-7">Theorem 7</a>
+      to induct on b.
+    </p>
+
+    <p>
+      Base case. We need a + 0 = 0 + a.
+      By <a href="./addition.html#theorem-13">Theorem 13</a>,
+      a + 0 = a. By
+      <a href="./addition.html#theorem-14">Theorem 14</a>,
+      0 + a = a. Thus both sides equal a.
+    </p>
+
+    <p>
+      Induction step. Assume a + b = b + a. At the next input,
+      our goal is
+    </p>
+
+    <p class="formula">a + S(b) = S(b) + a.</p>
+
+    <p>
+      On the left, the successor is in the second input.
+      By <a href="./addition.html#theorem-13">Theorem 13</a>,
+    </p>
+
+    <p class="formula">a + S(b) = S(a + b).</p>
+
+    <p>
+      On the right, the successor is in the first input.
+      By <a href="#theorem-15">Theorem 15</a>,
+    </p>
+
+    <p class="formula">S(b) + a = S(b + a).</p>
+
+    <p>
+      The induction hypothesis gives a + b = b + a.
+      Taking the successor of these equal numbers gives
+      S(a + b) = S(b + a). This proves our goal.
+      By induction, a + b = b + a for all a and b in ℕ.
+    </p>
+
+    <h2 id="theorem-17">Theorem 17: Associativity of Addition</h2>
+
+    <p>
+      Addition is associative. The order of the three inputs
+      stays the same, and we can choose which sum to compute first.
+      For all natural numbers a, b, and c,
+    </p>
+
+    <p class="formula">(a + b) + c = a + (b + c).</p>
+
+    <p>
+      Proof. Fix a and b. We use
+      <a href="./mathematical-induction.html#theorem-7">Theorem 7</a>
+      to induct on c. This choice lets us apply the step rule
+      for addition whenever c becomes S(c).
+    </p>
+
+    <p>
+      Base case. When c = 0, the left side is (a + b) + 0 = a + b.
+      On the right, b + 0 = b, so a + (b + 0) = a + b.
+      Both calculations use
+      <a href="./addition.html#theorem-13">Theorem 13</a>.
+    </p>
+
+    <p>
+      Induction step. Assume (a + b) + c = a + (b + c).
+      Replacing c with S(c) gives our goal:
+    </p>
+
+    <p class="formula">(a + b) + S(c) = a + (b + S(c)).</p>
+
+    <p>
+      Start with the left side. In the step rule
+      x + S(y) = S(x + y), take x = a + b and y = c.
+      This gives
+    </p>
+
+    <p class="formula">(a + b) + S(c) = S((a + b) + c).</p>
+
+    <p>
+      Now work on the right side, starting inside the parentheses.
+      First use b + S(c) = S(b + c). Then use the step rule
+      again, this time with x = a and y = b + c.
+    </p>
+
+    <p class="formula">a + (b + S(c)) = a + S(b + c) = S(a + (b + c)).</p>
+
+    <p>
+      The two results are successors. What is inside each S?
+      On the left we have (a + b) + c. On the right we have
+      a + (b + c). These are equal by the induction hypothesis,
+      so their successors are equal as well.
+    </p>
+
+    <p>
+      This proves the induction step. Therefore
+      (a + b) + c = a + (b + c) for all a, b, and c in ℕ.
+    </p>
+  </article>
+</body>
+</html>
