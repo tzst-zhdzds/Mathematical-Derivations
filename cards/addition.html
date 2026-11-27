@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Addition on the Natural Numbers</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2 {
+      line-height: 1.35;
+    }
+
+    h2 {
+      margin-top: 2em;
+    }
+
+    a {
+      color: #27634b;
+    }
+
+    .formula {
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      background: #f3f6f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">Back to home page</a>
+  </nav>
+
+  <article>
+    <h1>Addition on the Natural Numbers</h1>
+
+    <h2>Starting at a Number and Taking Successors</h2>
+
+    <p>
+      Start at 1. Before taking any steps, we are at 1.
+      After one successor step, we are at S(1) = 2.
+      After another step, we are at S(2) = 3.
+      This is the idea we want the expression 1 + 2 to capture:
+      start at 1 and take two successor steps.
+    </p>
+
+    <p>
+      More generally, in a + b, the first number a tells us
+      where to start. The second number b tells us how many
+      successor steps to take. We can make this precise using
+      <a href="./recursion.html#theorem-12">Theorem 12</a>.
+    </p>
+
+    <h2 id="theorem-13">Theorem 13: Existence and Uniqueness of Addition</h2>
+
+    <p>
+      A binary operation on ℕ is a function from ℕ × ℕ to ℕ.
+      Its input is an ordered pair of natural numbers, and its
+      output is one natural number.
+    </p>
+
+    <p>
+      There is a unique binary operation on ℕ, called addition,
+      whose output at (a, b) is written a + b and which satisfies
+      the following equations for all natural numbers a and b.
+    </p>
+
+    <p class="formula">a + 0 = a</p>
+    <p class="formula">a + S(b) = S(a + b)</p>
+
+    <p>
+      Proof. First fix the starting number a. We want a function
+      h whose input b counts the steps and whose output h(b)
+      records where we end up.
+      In <a href="./recursion.html#theorem-12">Theorem 12</a>,
+      make the following choices.
+    </p>
+
+    <ul>
+      <li>The set of possible outputs is X = ℕ.</li>
+      <li>The starting value is a.</li>
+      <li>The update function is the successor function S: ℕ → ℕ.</li>
+    </ul>
+
+    <p>
+      Theorem 12 now gives exactly one function h: ℕ → ℕ
+      satisfying these two equations:
+    </p>
+
+    <p class="formula">h(0) = a</p>
+    <p class="formula">h(S(b)) = S(h(b))</p>
+
+    <p>
+      Why are there two occurrences of S in the second equation?
+      On the left, S(b) advances the step count.
+      On the right, S(h(b)) advances the current value.
+      For example, if we start at 1 and have taken zero steps,
+      the step count is 0 while the current value is 1.
+    </p>
+
+    <p>
+      Now allow a to vary as well. Given any pair (a, b), use a
+      to determine the function h above, then take its value at b.
+      This rule gives exactly one natural number for each pair:
+      the starting value determines a unique h, and h gives a
+      unique output at b.
+      By <a href="./functions.html#theorem-11">Theorem 11</a>,
+      the rule defines a function from ℕ × ℕ to ℕ.
+    </p>
+
+    <p>
+      Write its output as a + b. For our fixed starting value a,
+      this means h(b) = a + b. Substituting this notation into
+      h(0) = a gives a + 0 = a. In the step equation,
+      h(S(b)) becomes a + S(b), and S(h(b)) becomes S(a + b).
+      This gives the second equation:
+    </p>
+
+    <p class="formula">a + S(b) = S(a + b).</p>
+
+    <p>
+      Finally, suppose another binary operation satisfies the same
+      two equations. Fix its first input a and let the second input b
+      vary. The resulting function of b starts at a and applies S
+      at each step. By the uniqueness in
+      <a href="./recursion.html#theorem-12">Theorem 12</a>,
+      it must be h. Thus the two operations give the same output
+      for every pair (a, b). Their graphs are equal by
+      <a href="./zfc.html#axiom-1">Axiom 1</a>.
+    </p>
+
+    <h2>Computing 1 + 2</h2>
+
+    <p>
+      Keep the first input fixed at 1. The starting equation gives
+      1 + 0 = 1. To find 1 + 1, write the second input as S(0)
+      and use the step equation with a = 1 and b = 0.
+    </p>
+
+    <p class="formula">1 + 1 = 1 + S(0) = S(1 + 0) = S(1) = 2.</p>
+
+    <p>
+      Now use the same equation with a = 1 and b = 1.
+      Since 2 = S(1), we get
+    </p>
+
+    <p class="formula">1 + 2 = 1 + S(1) = S(1 + 1) = S(2) = 3.</p>
+
+    <h2 id="theorem-14">Theorem 14: Zero on the Left</h2>
+
+    <p>
+      The starting equation tells us what happens when the second
+      input is 0. What happens when the first input is 0?
+      For every natural number b, we claim that
+    </p>
+
+    <p class="formula">0 + b = b.</p>
+
+    <p>
+      Proof. Use
+      <a href="./mathematical-induction.html#theorem-7">Theorem 7</a>
+      to induct on b.
+    </p>
+
+    <p>
+      Base case. Let b = 0. The starting equation from
+      <a href="#theorem-13">Theorem 13</a> says a + 0 = a.
+      Taking a = 0 gives 0 + 0 = 0.
+    </p>
+
+    <p>
+      Induction step. Assume 0 + b = b. Our goal is to prove
+      the statement at the next input, namely 0 + S(b) = S(b).
+      The step equation from <a href="#theorem-13">Theorem 13</a>,
+      with a = 0, gives
+    </p>
+
+    <p class="formula">0 + S(b) = S(0 + b).</p>
+
+    <p>
+      Inside the outer S, the induction hypothesis lets us
+      replace 0 + b with b. Thus S(0 + b) = S(b), as required.
+      By induction, 0 + b = b for every b ∈ ℕ.
+    </p>
+  </article>
+</body>
+</html>
