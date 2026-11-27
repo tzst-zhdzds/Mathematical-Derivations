@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multiplication on the Natural Numbers</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2 {
+      line-height: 1.35;
+    }
+
+    h2 {
+      margin-top: 2em;
+    }
+
+    a {
+      color: #27634b;
+    }
+
+    .formula {
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      background: #f3f6f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">Back to home page</a>
+  </nav>
+
+  <article>
+    <h1>Multiplication on the Natural Numbers</h1>
+
+    <h2>Repeated Addition</h2>
+
+    <p>
+      Imagine starting with a total of 0 and adding 2 at each step.
+      Before the first step, the total is 0. After one step, it is
+      0 + 2. After another step, it is (0 + 2) + 2.
+    </p>
+
+    <p>
+      We write a · b for the total obtained by starting at 0
+      and adding a at each of b steps. The first input tells us
+      what to add at each step. The second input counts the steps.
+    </p>
+
+    <h2 id="theorem-18">Theorem 18: Existence and Uniqueness of Multiplication</h2>
+
+    <p>
+      There is a unique binary operation on ℕ, called multiplication,
+      whose output at (a, b) is written a · b and which satisfies
+      the following equations for all natural numbers a and b.
+    </p>
+
+    <p class="formula">a · 0 = 0</p>
+    <p class="formula">a · S(b) = (a · b) + a</p>
+
+    <p>
+      Proof. Fix a natural number a. If the current total is x,
+      the next total should be x + a. By
+      <a href="./addition.html#theorem-13">Theorem 13</a>,
+      x + a is a uniquely determined natural number for every x ∈ ℕ.
+      By <a href="./functions.html#theorem-11">Theorem 11</a>,
+      this gives a function g: ℕ → ℕ with g(x) = x + a.
+    </p>
+
+    <p>
+      Now apply <a href="./recursion.html#theorem-12">Theorem 12</a>
+      with starting value 0 and update function g. It gives a
+      unique function h: ℕ → ℕ satisfying
+    </p>
+
+    <p class="formula">h(0) = 0</p>
+    <p class="formula">h(S(b)) = g(h(b)) = h(b) + a.</p>
+
+    <p>
+      For the input pair (a, b), take the function h determined
+      by a, then evaluate it at b. Each pair gives exactly one
+      natural number. By
+      <a href="./functions.html#theorem-11">Theorem 11</a>,
+      this rule defines a function from ℕ × ℕ to ℕ.
+      Write its output h(b) as a · b. The two equations for h
+      now read a · 0 = 0 and a · S(b) = (a · b) + a.
+    </p>
+
+    <p>
+      For uniqueness, suppose another operation satisfies the same
+      equations. Fix its first input a. As the second input varies,
+      the resulting function also starts at 0 and updates its value
+      by adding a. By the uniqueness in
+      <a href="./recursion.html#theorem-12">Theorem 12</a>,
+      this function must be h. Thus the two operations agree on
+      every input pair and have the same graph.
+    </p>
+
+    <h2>Computing 2 · 2</h2>
+
+    <p>
+      Keep the first input fixed at 2. The starting equation gives
+      2 · 0 = 0. Since 1 = S(0), the step equation gives
+    </p>
+
+    <p class="formula">2 · 1 = (2 · 0) + 2 = 0 + 2 = 2.</p>
+
+    <p>
+      The last equality uses
+      <a href="./addition.html#theorem-14">Theorem 14</a>.
+      Now use 2 = S(1) to take one more step.
+    </p>
+
+    <p class="formula">2 · 2 = (2 · 1) + 2 = 2 + 2.</p>
+
+    <p>
+      We can finish using addition. Write 4 for S(3).
+      By <a href="./addition.html#theorem-13">Theorem 13</a>,
+      2 + 1 = S(2 + 0) = S(2) = 3. Applying the same rule again gives
+    </p>
+
+    <p class="formula">2 + 2 = 2 + S(1) = S(2 + 1) = S(3) = 4.</p>
+
+    <p>Thus 2 · 2 = 4.</p>
+
+    <h2 id="theorem-19">Theorem 19: Multiplication by Zero and One</h2>
+
+    <p>For every natural number a,</p>
+
+    <p class="formula">a · 0 = 0 and 0 · a = 0.</p>
+    <p class="formula">a · 1 = a and 1 · a = a.</p>
+
+    <p>
+      Proof. First consider 0 and 1 in the second position.
+      The equation a · 0 = 0 is the starting equation from
+      <a href="#theorem-18">Theorem 18</a>. Since 1 = S(0),
+      one step gives
+    </p>
+
+    <p class="formula">a · 1 = (a · 0) + a = 0 + a = a.</p>
+
+    <p>
+      For 0 in the first position, use
+      <a href="./mathematical-induction.html#theorem-7">Theorem 7</a>
+      to prove 0 · b = 0 for every b. The base case is 0 · 0 = 0.
+      For the induction step, assume 0 · b = 0. The step equation
+      tells us to add the first input, which here is 0. Thus
+    </p>
+
+    <p class="formula">0 · S(b) = (0 · b) + 0 = 0 + 0 = 0.</p>
+
+    <p>
+      Finally, use induction to prove 1 · b = b.
+      The base case is 1 · 0 = 0. Assume 1 · b = b.
+      This time the step equation tells us to add 1, so
+    </p>
+
+    <p class="formula">1 · S(b) = (1 · b) + 1 = b + 1.</p>
+
+    <p>
+      Our goal at this step is 1 · S(b) = S(b).
+      To see why b + 1 equals the required value, write 1 = S(0)
+      and use <a href="./addition.html#theorem-13">Theorem 13</a>:
+    </p>
+
+    <p class="formula">b + 1 = b + S(0) = S(b + 0) = S(b).</p>
+
+    <p>
+      This completes the induction and proves all four equalities.
+    </p>
+  </article>
+</body>
+</html>
