@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Relations and Equivalence Relations</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2 { line-height: 1.35; }
+    h2 { margin-top: 2em; }
+    a { color: #27634b; }
+
+    .formula {
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      background: #f3f6f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <nav><a href="../index.html">Back to home page</a></nav>
+
+  <article>
+    <h1>Relations and Equivalence Relations</h1>
+
+    <h2 id="binary-relations">Binary Relations</h2>
+
+    <p>
+      Let A and B be sets. By
+      <a href="./cartesian-product.html#theorem-10">Theorem 10</a>,
+      A × B contains all ordered pairs with first entry in A
+      and second entry in B. Any subset R of A × B is called
+      a binary relation from A to B.
+    </p>
+
+    <p class="formula">R ⊆ A × B</p>
+
+    <p>
+      To say that x is related to y means that the pair (x, y)
+      belongs to R. We can write the same statement in either form.
+    </p>
+
+    <p class="formula">x R y ⇔ (x, y) ∈ R</p>
+
+    <p>
+      When both entries come from the same set A, we call R a
+      relation on A. In this case R ⊆ A × A. The order of the
+      entries still matters. For example, let a and b be distinct
+      elements of A and take R = {(a, b)}. Then a R b holds.
+      By <a href="./cartesian-product.html#theorem-9">Theorem 9</a>,
+      (b, a) differs from (a, b), so b R a is false.
+    </p>
+
+    <h2 id="equivalence-relations">Equivalence Relations</h2>
+
+    <p>
+      A relation R on A is an equivalence relation if and only if
+      it has all three properties below.
+    </p>
+
+    <ul>
+      <li>
+        <em>Reflexive.</em> For every x ∈ A, x R x.
+        Each element is related to itself.
+      </li>
+      <li>
+        <em>Symmetric.</em> For all x, y ∈ A, if x R y, then y R x.
+        A comparison can be reversed.
+      </li>
+      <li>
+        <em>Transitive.</em> For all x, y, z ∈ A, if x R y and
+        y R z, then x R z. The two comparisons share the middle
+        element y.
+      </li>
+    </ul>
+
+    <h2>Example</h2>
+
+    <p>
+      Let A = {a, b, c}, where a, b, and c are distinct.
+      For x and y in A, keep (x, y) if x = y or if both x and y
+      belong to {a, b}. By <a href="./zfc.html#axiom-2">Axiom 2</a>,
+      the pairs that pass this test form a subset R of A × A.
+    </p>
+
+    <p class="formula">R = {(a, a), (b, b), (c, c), (a, b), (b, a)}.</p>
+
+    <ul>
+      <li>Reflexivity holds because x = x for every x in A.</li>
+      <li>
+        Symmetry holds because reversing the entries preserves both
+        tests: equal entries remain equal, and two entries in {a, b}
+        both remain in {a, b}.
+      </li>
+      <li>
+        For transitivity, suppose x R y and y R z. If y = c, the
+        only pair involving c is (c, c), so x = z = c and x R z.
+        If y belongs to {a, b}, both x and z must also belong to
+        {a, b}, so again x R z.
+      </li>
+    </ul>
+
+    <p>
+      Thus R is an equivalence relation on A. In particular, a R b
+      holds even though a and b are distinct elements.
+    </p>
+  </article>
+</body>
+</html>
