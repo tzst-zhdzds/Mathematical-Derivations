@@ -56,6 +56,14 @@
 
    const cards = [
   {
+    id: "multiplication-laws",
+    title: "Laws of Multiplication",
+    type: "Theorem & Proof",
+    file: "./cards/multiplication-laws.html",
+    x: 340,
+    y: 1800
+  },
+  {
     id: "multiplication",
     title: "Multiplication on the Natural Numbers",
     type: "Definition & Proof",
@@ -162,6 +170,8 @@
 ];
 
 const links = [
+  { from: "addition-laws", to: "multiplication-laws" },
+  { from: "multiplication", to: "multiplication-laws" },
   { from: "addition", to: "multiplication" },
   { from: "addition", to: "addition-laws" },
   { from: "recursion", to: "addition" },
