@@ -56,6 +56,14 @@
 
    const cards = [
   {
+    id: "addition-laws",
+    title: "Laws of Addition",
+    type: "Theorem & Proof",
+    file: "./cards/addition-laws.html",
+    x: 170,
+    y: 1600
+  },
+  {
     id: "addition",
     title: "Addition on the Natural Numbers",
     type: "Definition & Proof",
@@ -146,6 +154,7 @@
 ];
 
 const links = [
+  { from: "addition", to: "addition-laws" },
   { from: "recursion", to: "addition" },
   { from: "functions", to: "recursion" },
   { from: "mathematical-induction", to: "recursion" },
