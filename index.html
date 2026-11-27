@@ -56,6 +56,14 @@
 
    const cards = [
   {
+    id: "recursion",
+    title: "Recursion on the Natural Numbers",
+    type: "Theorem & Proof",
+    file: "./cards/recursion.html",
+    x: 170,
+    y: 1200
+  },
+  {
     id: "functions",
     title: "Functions",
     type: "Definition & Proof",
@@ -130,6 +138,8 @@
 ];
 
 const links = [
+  { from: "functions", to: "recursion" },
+  { from: "mathematical-induction", to: "recursion" },
   { from: "cartesian-product", to: "functions" },
   { from: "natural-numbers", to: "functions" },
   { from: "power-set", to: "cartesian-product" },
