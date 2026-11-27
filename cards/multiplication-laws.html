@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laws of Multiplication</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2 {
+      line-height: 1.35;
+    }
+
+    h2 {
+      margin-top: 2em;
+    }
+
+    a {
+      color: #27634b;
+    }
+
+    .formula {
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      background: #f3f6f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">Back to home page</a>
+  </nav>
+
+  <article>
+    <h1>Laws of Multiplication</h1>
+
+    <p>
+      Suppose we add a + b to a running total at every step.
+      We could also keep two totals, adding a to the first and b
+      to the second. After c steps, does adding the two separate
+      totals give the same result? This is what the first
+      distributive law says.
+    </p>
+
+    <p>
+      In the formulas below, a · c + b · c means
+      (a · c) + (b · c).
+    </p>
+
+    <h2 id="theorem-20">Theorem 20: Distributivity with a Sum on the Left</h2>
+
+    <p>For all natural numbers a, b, and c,</p>
+
+    <p class="formula">(a + b) · c = a · c + b · c.</p>
+
+    <p>
+      Proof. Fix a and b. Use
+      <a href="./mathematical-induction.html#theorem-7">Theorem 7</a>
+      to induct on c, the number of steps.
+    </p>
+
+    <p>
+      Base case. When c = 0, the left side is (a + b) · 0 = 0
+      by <a href="./multiplication.html#theorem-18">Theorem 18</a>.
+      On the right, both products are 0, so their sum is 0 + 0 = 0
+      by <a href="./addition.html#theorem-13">Theorem 13</a>.
+    </p>
+
+    <p>
+      Induction step. Assume (a + b) · c = a · c + b · c.
+      To see what changes at the next step, give the two current
+      totals short names: let p = a · c and q = b · c.
+      Our assumption now reads (a + b) · c = p + q.
+    </p>
+
+    <p>
+      Start with the left side at S(c). By
+      <a href="./multiplication.html#theorem-18">Theorem 18</a>,
+      we add one more copy of a + b. Using the induction hypothesis gives
+    </p>
+
+    <p class="formula">
+      (a + b) · S(c) = ((a + b) · c) + (a + b) = (p + q) + (a + b).
+    </p>
+
+    <p>
+      Our goal is to put a with p and b with q. First use
+      <a href="./addition-laws.html#theorem-17">Theorem 17</a>
+      to regroup the sum until q + a appears inside parentheses.
+    </p>
+
+    <p class="formula">
+      (p + q) + (a + b) = p + (q + (a + b)) = p + ((q + a) + b).
+    </p>
+
+    <p>
+      By <a href="./addition-laws.html#theorem-16">Theorem 16</a>,
+      q + a = a + q. Substitute this equality, then regroup
+      using Theorem 17 again.
+    </p>
+
+    <p class="formula">
+      p + ((a + q) + b) = p + (a + (q + b)) = (p + a) + (q + b).
+    </p>
+
+    <p>
+      Now p + a = (a · c) + a = a · S(c) by Theorem 18.
+      Likewise, q + b = (b · c) + b = b · S(c).
+      Substituting these expressions gives exactly our goal:
+    </p>
+
+    <p class="formula">(a + b) · S(c) = a · S(c) + b · S(c).</p>
+
+    <p>By induction, the equality holds for every c ∈ ℕ.</p>
+
+    <h2 id="theorem-21">Theorem 21: Commutativity of Multiplication</h2>
+
+    <p>For all natural numbers a and b,</p>
+
+    <p class="formula">a · b = b · a.</p>
+
+    <p>
+      Proof. Fix a and use
+      <a href="./mathematical-induction.html#theorem-7">Theorem 7</a>
+      to induct on b. In the base case, a · 0 = 0 and 0 · a = 0
+      by <a href="./multiplication.html#theorem-19">Theorem 19</a>.
+    </p>
+
+    <p>
+      Induction step. Assume a · b = b · a.
+      We want to show a · S(b) = S(b) · a.
+      On the left, the successor is in the second input, so
+      <a href="./multiplication.html#theorem-18">Theorem 18</a>
+      applies directly. Then use the induction hypothesis:
+    </p>
+
+    <p class="formula">a · S(b) = (a · b) + a = (b · a) + a.</p>
+
+    <p>
+      On the right, the successor is in the first input.
+      To use <a href="#theorem-20">Theorem 20</a>, write S(b)
+      as a sum. This follows from
+      <a href="./addition.html#theorem-13">Theorem 13</a>:
+    </p>
+
+    <p class="formula">b + 1 = b + S(0) = S(b + 0) = S(b).</p>
+
+    <p>
+      Replace S(b) with b + 1, distribute, and use
+      <a href="./multiplication.html#theorem-19">Theorem 19</a>
+      to replace 1 · a with a.
+    </p>
+
+    <p class="formula">
+      S(b) · a = (b + 1) · a = (b · a) + (1 · a) = (b · a) + a.
+    </p>
+
+    <p>
+      Both sides equal (b · a) + a. This proves the induction
+      step and hence the commutativity of multiplication.
+    </p>
+
+    <h2 id="theorem-22">Theorem 22: Distributivity with a Sum on the Right</h2>
+
+    <p>For all natural numbers a, b, and c,</p>
+
+    <p class="formula">a · (b + c) = a · b + a · c.</p>
+
+    <p>
+      Proof. By <a href="#theorem-21">Theorem 21</a>, we can
+      exchange the two factors to put the sum on the left.
+      Then <a href="#theorem-20">Theorem 20</a> lets us distribute.
+    </p>
+
+    <p class="formula">a · (b + c) = (b + c) · a = b · a + c · a.</p>
+
+    <p>
+      Apply Theorem 21 to each product in the sum.
+      Replacing b · a with a · b and c · a with a · c
+      gives the required result.
+    </p>
+
+    <h2 id="theorem-23">Theorem 23: Associativity of Multiplication</h2>
+
+    <p>
+      For all natural numbers a, b, and c, we can change which
+      multiplication is performed first while keeping the factors
+      in the same order.
+    </p>
+
+    <p class="formula">(a · b) · c = a · (b · c).</p>
+
+    <p>
+      Proof. Fix a and b. Use
+      <a href="./mathematical-induction.html#theorem-7">Theorem 7</a>
+      to induct on c.
+    </p>
+
+    <p>
+      Base case. When c = 0, the left side is (a · b) · 0 = 0.
+      On the right, b · 0 = 0, so a · (b · 0) = a · 0 = 0.
+      These equalities follow from
+      <a href="./multiplication.html#theorem-18">Theorem 18</a>.
+    </p>
+
+    <p>
+      Induction step. Assume (a · b) · c = a · (b · c).
+      At S(c), our goal is
+    </p>
+
+    <p class="formula">(a · b) · S(c) = a · (b · S(c)).</p>
+
+    <p>
+      Start with the left side. In the step rule
+      x · S(c) = (x · c) + x, take x = a · b.
+      Then apply the induction hypothesis to the first term
+      of the resulting sum.
+    </p>
+
+    <p class="formula">
+      (a · b) · S(c) = ((a · b) · c) + (a · b)
+      = (a · (b · c)) + (a · b).
+    </p>
+
+    <p>
+      Now start with the right side. Inside the parentheses,
+      Theorem 18 gives b · S(c) = (b · c) + b.
+      This puts a sum in the second input of multiplication,
+      so <a href="#theorem-22">Theorem 22</a> applies.
+    </p>
+
+    <p class="formula">
+      a · (b · S(c)) = a · ((b · c) + b)
+      = (a · (b · c)) + (a · b).
+    </p>
+
+    <p>
+      The two sides give the same sum. This proves the induction
+      step, so multiplication is associative on ℕ.
+    </p>
+  </article>
+</body>
+</html>
