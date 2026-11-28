@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Integer Addition and Subtraction</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2 { line-height: 1.35; }
+    h2 { margin-top: 2em; }
+    a { color: #27634b; }
+
+    .formula {
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      background: #f3f6f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">Back to home page</a>
+  </nav>
+
+  <article>
+    <h1>Integer Addition and Subtraction</h1>
+
+    <h2>Adding Two Walks</h2>
+
+    <p>
+      Suppose the first walk has record (a, b) and the second has
+      record (c, d). Walk them one after the other. Altogether we
+      take a + c forward steps and b + d backward steps.
+      This suggests the following rule for adding their classes:
+    </p>
+
+    <p class="formula">[(a, b)] + [(c, d)] = [(a + c, b + d)].</p>
+
+    <p>
+      Inside the pair, we add natural numbers. The plus sign between
+      the two classes is the integer addition we want to define.
+      A record whose class is a given integer is called a representative
+      of that integer.
+    </p>
+
+    <h2>What If We Use Another Representative?</h2>
+
+    <p>
+      Start with one forward step, recorded as (1, 0), and add the
+      integer -1. On the previous card we found two records for -1:
+      (0, 1) and (1, 2). Try each one in the proposed rule.
+    </p>
+
+    <p class="formula">[(1, 0)] + [(0, 1)] = [(1, 1)].</p>
+    <p class="formula">[(1, 0)] + [(1, 2)] = [(2, 2)].</p>
+
+    <p>
+      Do these answers agree? The equivalence test for (1, 1) and
+      (2, 2) asks whether 1 + 2 = 2 + 1. This holds by
+      <a href="./addition-laws.html#theorem-16">Theorem 16</a>.
+      By <a href="./integers.html#theorem-26">Theorem 26</a>,
+      [(1, 1)] = [(2, 2)]. We need this to work for every pair of
+      integers, even when we change both representatives.
+    </p>
+
+    <h2 id="theorem-27">Theorem 27: Integer Addition Is Well-Defined</h2>
+
+    <p>
+      For every pair of integers, the rule above gives exactly one
+      integer as their sum. In particular, every choice of
+      representatives gives the same output class.
+    </p>
+
+    <p>
+      Proof. Choose a representative (a, b) of the first integer
+      and (c, d) of the second. Such records exist by the definition
+      of an integer. By <a href="./addition.html#theorem-13">Theorem 13</a>,
+      a + c and b + d are natural numbers. Their pair therefore has
+      a class in ℤ. This gives us an output.
+    </p>
+
+    <p>
+      Now choose other representatives (a', b') and (c', d') for the
+      same two integers. The primes mark the new entries. By
+      <a href="./integers.html#theorem-26">Theorem 26</a>, each old
+      record is equivalent to its replacement. Writing out the two
+      equivalence tests gives
+    </p>
+
+    <p class="formula">a + b' = a' + b and c + d' = c' + d.</p>
+
+    <p>
+      Our output records are (a + c, b + d) and (a' + c', b' + d').
+      Apply the equivalence test to these two records. The first entry
+      of each record must be added to the second entry of the other.
+      Thus our goal is
+    </p>
+
+    <p class="formula">(a + c) + (b' + d') = (a' + c') + (b + d).</p>
+
+    <p>
+      Start on the left. By <a href="./addition-laws.html#theorem-17">Theorem 17</a>,
+      we can regroup the sum to bring c and b' together. By
+      <a href="./addition-laws.html#theorem-16">Theorem 16</a>, we can
+      swap them. Regrouping gives
+    </p>
+
+    <p class="formula">(a + c) + (b' + d') = (a + b') + (c + d').</p>
+
+    <p>
+      Now each parenthesis matches one of our two input equalities.
+      Replace a + b' with a' + b, and c + d' with c' + d. We get
+    </p>
+
+    <p class="formula">(a + b') + (c + d') = (a' + b) + (c' + d).</p>
+
+    <p>
+      Use the same two addition laws to swap the middle terms b and c'
+      and regroup. This reaches our goal:
+    </p>
+
+    <p class="formula">(a' + b) + (c' + d) = (a' + c') + (b + d).</p>
+
+    <p>
+      The output records pass the equivalence test, so their classes
+      are equal by <a href="./integers.html#theorem-26">Theorem 26</a>.
+      We have proved that every pair of integers gives exactly one
+      output integer. By <a href="./functions.html#theorem-11">Theorem 11</a>,
+      this rule defines a function from ℤ × ℤ to ℤ. This function is
+      addition on the integers.
+    </p>
+
+    <h2>Zero in the Integers</h2>
+
+    <p>
+      A walk with no steps has record (0, 0). We call its class the
+      integer zero and write 0<sub>ℤ</sub> = [(0, 0)]. How can we
+      recognize other records in this class? By
+      <a href="./integers.html#theorem-26">Theorem 26</a>, the
+      class of (u, v) equals [(0, 0)] exactly when u + 0 = 0 + v.
+      By <a href="./addition.html#theorem-13">Theorem 13</a> and
+      <a href="./addition.html#theorem-14">Theorem 14</a>, this
+      reduces to u = v.
+    </p>
+
+    <p class="formula">[(u, v)] = 0<sub>ℤ</sub> ⇔ u = v.</p>
+
+    <p>
+      Adding integer zero leaves every integer unchanged. Indeed,
+      if x = [(a, b)], then <a href="#theorem-27">Theorem 27</a>
+      gives both calculations:
+    </p>
+
+    <p class="formula">x + 0<sub>ℤ</sub> = [(a + 0, b + 0)] = [(a, b)] = x.</p>
+    <p class="formula">0<sub>ℤ</sub> + x = [(0 + a, 0 + b)] = [(a, b)] = x.</p>
+
+    <h2 id="theorem-28">Theorem 28: Every Integer Has a Unique Additive Inverse</h2>
+
+    <p>
+      An additive inverse of x is an integer y such that both x + y
+      and y + x equal integer zero. We will show that every integer
+      x has exactly one additive inverse. We write it as -x.
+    </p>
+
+    <p>
+      Suppose x = [(a, b)]. To undo the walk, switch forward and
+      backward steps. This suggests using [(b, a)] as the inverse.
+      First check that switching entries gives the same class for
+      every representative of x.
+    </p>
+
+    <p>
+      Suppose [(a, b)] = [(c, d)]. By
+      <a href="./integers.html#theorem-26">Theorem 26</a>,
+      a + d = c + b. Read this equality in reverse and use
+      <a href="./addition-laws.html#theorem-16">Theorem 16</a>
+      to exchange the two addends on each side:
+    </p>
+
+    <p class="formula">b + c = c + b = a + d = d + a.</p>
+
+    <p>
+      The equality b + c = d + a is the equivalence test for
+      (b, a) and (d, c). Thus [(b, a)] = [(d, c)].
+    </p>
+
+    <p>
+      Now take y = [(b, a)]. Adding in the two possible orders gives
+    </p>
+
+    <p class="formula">x + y = [(a + b, b + a)].</p>
+    <p class="formula">y + x = [(b + a, a + b)].</p>
+
+    <p>
+      Since a + b = b + a, each output record has equal entries.
+      By our test for integer zero, both sums equal 0<sub>ℤ</sub>.
+      Thus y is an additive inverse of x.
+    </p>
+
+    <p>
+      Could another integer work? Suppose z = [(c, d)] is also
+      an additive inverse of x. Then x + z = [(a + c, b + d)]
+      equals integer zero, so a + c = b + d. Exchanging the
+      addends on the left gives c + a = b + d. This is exactly
+      the test for (c, d) ∼ (b, a). Therefore z = [(b, a)] = y.
+      The inverse is unique, and we have proved the formula
+    </p>
+
+    <p class="formula">-[(a, b)] = [(b, a)].</p>
+
+    <h2>Integer Subtraction</h2>
+
+    <p>
+      For integers x and y, we define x - y to mean x + (-y).
+      In -y, the minus sign takes the additive inverse of one integer.
+      In x - y, it denotes subtraction of the second integer from
+      the first.
+    </p>
+
+    <p>
+      To compute with records, first use
+      <a href="#theorem-28">Theorem 28</a> to switch the entries
+      of the second record. Then use
+      <a href="#theorem-27">Theorem 27</a> to add:
+    </p>
+
+    <p class="formula">
+      [(a, b)] - [(c, d)] = [(a, b)] + [(d, c)] = [(a + d, b + c)].
+    </p>
+
+    <p>
+      Each step gives a unique integer for the given inputs, so the
+      result is independent of the representatives used in the calculation.
+    </p>
+
+    <p>
+      For example, subtract the class of two forward steps from the
+      class of one forward step:
+    </p>
+
+    <p class="formula">[(1, 0)] - [(2, 0)] = [(1, 0)] + [(0, 2)] = [(1, 2)].</p>
+
+    <p>
+      Is this the integer we named -1? The test for (1, 2) ∼ (0, 1)
+      asks whether 1 + 1 = 0 + 2. Both sides equal 2. Hence
+      [(1, 2)] = [(0, 1)] = -1.
+    </p>
+  </article>
+</body>
+</html>
