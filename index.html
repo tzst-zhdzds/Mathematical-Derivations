@@ -56,6 +56,14 @@
 
    const cards = [
   {
+    id: "integer-multiplication",
+    title: "Integer Multiplication",
+    type: "Definition & Proof",
+    file: "./cards/integer-multiplication.html",
+    x: 170,
+    y: 2400
+  },
+  {
     id: "integer-addition",
     title: "Integer Addition",
     type: "Definition & Proof",
@@ -202,6 +210,8 @@
 ];
 
 const links = [
+  { from: "integer-addition", to: "integer-multiplication" },
+  { from: "multiplication-laws", to: "integer-multiplication" },
   { from: "integers", to: "integer-addition" },
   { from: "formal-differences", to: "integers" },
   { from: "addition-laws", to: "formal-differences" },
