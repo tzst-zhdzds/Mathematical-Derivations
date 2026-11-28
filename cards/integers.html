@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Integers</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2 { line-height: 1.35; }
+    h2 { margin-top: 2em; }
+    a { color: #27634b; }
+
+    .formula {
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      background: #f3f6f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">Back to home page</a>
+  </nav>
+
+  <article>
+    <h1>Integers</h1>
+
+    <h2>Different Records of the Same Change</h2>
+
+    <p>
+      One step backward gives the record (0, 1). One step forward
+      followed by two steps backward gives (1, 2). Starting at the same
+      place, both walks end at the same place. How can we give their
+      shared change a single name?
+    </p>
+
+    <p>
+      Let D = ℕ × ℕ, the set of all such records. Recall the test
+      for two records to be equivalent:
+    </p>
+
+    <p class="formula">(a, b) ∼ (c, d) ⇔ a + d = c + b.</p>
+
+    <p>
+      For (0, 1) and (1, 2), the test asks whether 0 + 2 = 1 + 1.
+      Both sums equal 2, so (0, 1) ∼ (1, 2). By
+      <a href="./formal-differences.html#theorem-25">Theorem 25</a>,
+      ∼ is an <a href="./relations.html#equivalence-relations">equivalence relation</a>
+      on D.
+    </p>
+
+    <h2>The Equivalence Class of a Record</h2>
+
+    <p>
+      Fix a record p in D. Here p stands for a whole ordered pair.
+      From D, keep each record r for which p ∼ r. By
+      <a href="./zfc.html#axiom-2">Axiom 2</a>, these records form
+      a set. We call it the equivalence class of p and write [p].
+    </p>
+
+    <p class="formula">[p] = {r ∈ D | p ∼ r}.</p>
+
+    <p>
+      The bar means "such that". For example, to decide whether
+      (m, n) belongs to [(0, 1)], put (0, 1) on the left of the
+      test and (m, n) on the right. The test becomes 0 + n = m + 1.
+      By <a href="./addition.html#theorem-14">Theorem 14</a>, 0 + n = n.
+      So this class contains exactly the records with one more
+      backward step than forward steps.
+    </p>
+
+    <h2 id="theorem-26">Theorem 26: When Two Classes Are Equal</h2>
+
+    <p>For any records p and q in D,</p>
+
+    <p class="formula">[p] = [q] ⇔ p ∼ q.</p>
+
+    <p>
+      First suppose [p] = [q]. By reflexivity, q ∼ q, so q belongs
+      to [q]. Since [q] = [p], we also have q ∈ [p]. By the
+      definition of [p], this means p ∼ q.
+    </p>
+
+    <p>
+      Conversely, suppose p ∼ q. To prove [p] = [q], we compare
+      their elements in both directions.
+    </p>
+
+    <ul>
+      <li>
+        Take any r ∈ [p]. Then p ∼ r. By symmetry, p ∼ q gives
+        q ∼ p. By transitivity, q ∼ p and p ∼ r give q ∼ r.
+        Thus r ∈ [q], proving [p] ⊆ [q].
+      </li>
+      <li>
+        Take any r ∈ [q]. Then q ∼ r. By transitivity, p ∼ q
+        and q ∼ r give p ∼ r. Thus r ∈ [p], proving [q] ⊆ [p].
+      </li>
+    </ul>
+
+    <p>
+      By <a href="./subsets.html#theorem-2">Theorem 2</a>, the
+      two inclusions give [p] = [q]. This proves both directions.
+    </p>
+
+    <h2>The Set of Integers</h2>
+
+    <p>
+      We define an integer to be an equivalence class of records in D
+      under ∼. How can we collect all these classes into one set?
+      Every class [p] is a subset of D. By
+      <a href="./zfc.html#axiom-5">Axiom 5</a>, the power set P(D)
+      exists, and every class [p] is one of its elements.
+    </p>
+
+    <p>
+      From P(D), keep a set C exactly when C = [p] for some p ∈ D.
+      By <a href="./zfc.html#axiom-2">Axiom 2</a>, the selected sets
+      form a set. By <a href="./zfc.html#axiom-1">Axiom 1</a>,
+      those elements determine it uniquely. We call it the set of
+      integers and write ℤ.
+    </p>
+
+    <p class="formula">ℤ = {C ∈ P(D) | there exists p ∈ D with C = [p]}.</p>
+
+    <p>
+      We can now name the change in our opening example. We write -1
+      for the integer [(0, 1)]. Since (0, 1) ∼ (1, 2),
+      <a href="#theorem-26">Theorem 26</a> gives
+    </p>
+
+    <p class="formula">[(0, 1)] = [(1, 2)] = -1.</p>
+
+    <p>
+      The pair (1, 2) is one record in this class. The brackets
+      in [(1, 2)] name the entire class, which is one element of ℤ.
+    </p>
+  </article>
+</body>
+</html>
