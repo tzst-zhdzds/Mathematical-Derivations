@@ -56,6 +56,14 @@
 
    const cards = [
   {
+    id: "integers",
+    title: "Integers",
+    type: "Definition & Proof",
+    file: "./cards/integers.html",
+    x: 0,
+    y: 2000
+  },
+  {
     id: "relations",
     title: "Relations and Equivalence Relations",
     type: "Definition",
@@ -186,7 +194,7 @@
 ];
 
 const links = [
-  
+  { from: "formal-differences", to: "integers" },
   { from: "addition-laws", to: "formal-differences" },
   { from: "addition-laws", to: "multiplication-laws" },
   { from: "multiplication", to: "multiplication-laws" },
