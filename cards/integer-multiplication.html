@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Integer Multiplication</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2 { line-height: 1.35; }
+    h2 { margin-top: 2em; }
+    a { color: #27634b; }
+
+    .formula {
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      background: #f3f6f1;
+      border-radius: 8px;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 6px; text-align: left; border-bottom: 1px solid #dedfd6; }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">Back to home page</a>
+  </nav>
+
+  <article>
+    <h1>Integer Multiplication</h1>
+
+    <h2>Repeating a Walk</h2>
+
+    <p>
+      A walk with record (2, 1) takes two forward steps and one backward
+      step. Walking it twice gives the record (4, 2). In general, if we
+      repeat the walk (a, b) a natural number n of times, the record is
+      (an, bn). Here an means the natural-number product a · n.
+    </p>
+
+    <p>
+      What if we start with another record (u, v) for the same integer?
+      By <a href="./integers.html#theorem-26">Theorem 26</a>, we have
+      a + v = u + b. Multiply both sides by n and distribute using
+      <a href="./multiplication-laws.html#theorem-20">Theorem 20</a>:
+    </p>
+
+    <p class="formula">an + vn = (a + v)n = (u + b)n = un + bn.</p>
+
+    <p>
+      The two ends say exactly that (an, bn) ∼ (un, vn). Thus repeating
+      either record n times gives the same integer. This also works
+      when n = 0: both records then become (0, 0).
+    </p>
+
+    <h2>Using a Second Record as the Multiplier</h2>
+
+    <p>
+      Suppose the multiplier has record (c, d). For each of its c
+      forward steps, take one copy of the first walk. For each of its
+      d backward steps, undo one copy. This suggests repeating (a, b)
+      first c times and then subtracting the effect of d copies:
+    </p>
+
+    <p class="formula">[(ac, bc)] - [(ad, bd)].</p>
+
+    <p>
+      To subtract the second class, switch its entries by
+      <a href="./integer-addition.html#theorem-28">Theorem 28</a>
+      and add by <a href="./integer-addition.html#theorem-27">Theorem 27</a>.
+      This gives the proposed product:
+    </p>
+
+    <p class="formula">[(ac, bc)] + [(bd, ad)] = [(ac + bd, bc + ad)].</p>
+
+    <h2 id="theorem-29">Theorem 29: Integer Multiplication Is Well-Defined</h2>
+
+    <p>
+      For any two integers, the following rule gives exactly one
+      integer, whichever records we use to represent the inputs:
+    </p>
+
+    <p class="formula">[(a, b)] · [(c, d)] = [(ac + bd, bc + ad)].</p>
+
+    <p>
+      Proof. Every integer has a representative. For any two chosen
+      representatives, the displayed formula produces a pair of natural
+      numbers, so its class is an integer. It remains to check that
+      changing representatives gives the same class.
+    </p>
+
+    <p>
+      First, keep (c, d) fixed and change the first record. We proved
+      above that repeating equivalent records c times gives equal
+      classes. The same holds for d repetitions. Therefore both inputs
+      to the subtraction [(ac, bc)] - [(ad, bd)] stay the same as
+      integers. Their difference stays the same too.
+    </p>
+
+    <p>
+      To handle the second record, look at what happens when we swap
+      the two records in the formula. The entries in the following
+      table are all natural numbers.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Input order</th>
+          <th>Forward count</th>
+          <th>Backward count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>(a, b) then (c, d)</td>
+          <td>ac + bd</td>
+          <td>bc + ad</td>
+        </tr>
+        <tr>
+          <td>(c, d) then (a, b)</td>
+          <td>ca + db</td>
+          <td>da + cb</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      The forward counts agree because ca = ac and db = bd by
+      <a href="./multiplication-laws.html#theorem-21">Theorem 21</a>.
+      For the backward counts, the same law gives da + cb = ad + bc.
+      By <a href="./addition-laws.html#theorem-16">Theorem 16</a>,
+      this equals bc + ad. Thus swapping the input records gives
+      exactly the same output record.
+    </p>
+
+    <p>
+      Now suppose we want to replace the second record by an equivalent
+      one. Swap the two records, so the one we want to replace is first.
+      Make the replacement, which preserves the output class by the first
+      part of the proof. Then swap back. This proves that changing the
+      second record also preserves the output class.
+    </p>
+
+    <p>
+      We can therefore change either representative, or change both one
+      at a time. Each pair of integers determines exactly one output
+      integer. By <a href="./functions.html#theorem-11">Theorem 11</a>,
+      the rule defines a function from ℤ × ℤ to ℤ.
+    </p>
+
+    <h2>Why Does (-1) · (-1) Equal One?</h2>
+
+    <p>
+      We write 1<sub>ℤ</sub> for [(1, 0)], the class of one forward
+      step. The integer -1 is [(0, 1)]. Use (0, 1) for both records
+      in <a href="#theorem-29">Theorem 29</a>:
+    </p>
+
+    <p class="formula">(-1) · (-1) = [(0 · 0 + 1 · 1, 1 · 0 + 0 · 1)].</p>
+
+    <p>
+      By <a href="./multiplication.html#theorem-19">Theorem 19</a>,
+      the forward count is 0 + 1 = 1, and the backward count is
+      0 + 0 = 0. The result is [(1, 0)], exactly one forward step.
+    </p>
+
+    <p class="formula">(-1) · (-1) = 1<sub>ℤ</sub>.</p>
+  </article>
+</body>
+</html>
