@@ -56,6 +56,14 @@
 
    const cards = [
   {
+    id: "integer-arithmetic-laws",
+    title: "Laws of Integer Arithmetic",
+    type: "Theorem & Proof",
+    file: "./cards/integer-arithmetic-laws.html",
+    x: 170,
+    y: 2600
+  },
+  {
     id: "integer-multiplication",
     title: "Integer Multiplication",
     type: "Definition & Proof",
@@ -210,6 +218,7 @@
 ];
 
 const links = [
+  { from: "integer-multiplication", to: "integer-arithmetic-laws" },
   { from: "integer-addition", to: "integer-multiplication" },
   { from: "multiplication-laws", to: "integer-multiplication" },
   { from: "integers", to: "integer-addition" },
