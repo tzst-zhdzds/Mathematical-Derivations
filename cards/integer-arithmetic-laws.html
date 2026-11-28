@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laws of Integer Arithmetic</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      background: #f7f5f0;
+      color: #26352c;
+    }
+
+    article {
+      margin-top: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      background: white;
+      border: 1px solid #dedfd6;
+      border-radius: 16px;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2 { line-height: 1.35; }
+    h2 { margin-top: 2em; }
+    a { color: #27634b; }
+
+    .formula {
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      background: #f3f6f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="../index.html">Back to home page</a>
+  </nav>
+
+  <article>
+    <h1>Laws of Integer Arithmetic</h1>
+
+    <p>
+      Let x = [(a, b)], y = [(c, d)], and z = [(e, f)] be any
+      integers. We can choose any records for them by
+      <a href="./integer-addition.html#theorem-27">Theorem 27</a>
+      and <a href="./integer-multiplication.html#theorem-29">Theorem 29</a>.
+      To prove two calculations give the same integer, it is enough
+      to show they give identical forward and backward counts.
+    </p>
+
+    <p>
+      Inside a record, ac means the natural-number product a · c.
+      Between integers, xy means the integer product x · y.
+    </p>
+
+    <h2 id="theorem-30">Theorem 30: Commutativity and Associativity of Integer Addition</h2>
+
+    <p class="formula">x + y = y + x</p>
+    <p class="formula">(x + y) + z = x + (y + z)</p>
+
+    <p>
+      Proof. The records for x + y and y + x are (a + c, b + d)
+      and (c + a, d + b). Their entries agree by
+      <a href="./addition-laws.html#theorem-16">Theorem 16</a>.
+      For associativity, apply the addition rule twice:
+    </p>
+
+    <p class="formula">(x + y) + z = [((a + c) + e, (b + d) + f)].</p>
+    <p class="formula">x + (y + z) = [(a + (c + e), b + (d + f))].</p>
+
+    <p>
+      By <a href="./addition-laws.html#theorem-17">Theorem 17</a>,
+      the forward counts are equal, and so are the backward counts.
+      This proves the second equality.
+    </p>
+
+    <h2 id="theorem-31">Theorem 31: Integer Multiplication Is Commutative and Has an Identity</h2>
+
+    <p class="formula">xy = yx and x · 1<sub>ℤ</sub> = 1<sub>ℤ</sub> · x = x.</p>
+
+    <p>
+      Proof. The product rule gives xy = [(ac + bd, bc + ad)] and
+      yx = [(ca + db, da + cb)]. By
+      <a href="./multiplication-laws.html#theorem-21">Theorem 21</a>,
+      ca + db = ac + bd and da + cb = ad + bc. By
+      <a href="./addition-laws.html#theorem-16">Theorem 16</a>,
+      ad + bc = bc + ad. Both entries agree, so xy = yx.
+    </p>
+
+    <p>
+      Recall that 1<sub>ℤ</sub> = [(1, 0)]. Substituting (1, 0)
+      for the second record gives
+    </p>
+
+    <p class="formula">
+      x · 1<sub>ℤ</sub> = [(a · 1 + b · 0, b · 1 + a · 0)]
+      = [(a + 0, b + 0)] = x.
+    </p>
+
+    <p>
+      The simplifications use <a href="./multiplication.html#theorem-19">Theorem 19</a>
+      and <a href="./addition.html#theorem-13">Theorem 13</a>.
+      Commutativity now gives 1<sub>ℤ</sub> · x = x as well.
+    </p>
+
+    <h2 id="theorem-32">Theorem 32: Integer Multiplication Distributes over Addition</h2>
+
+    <p class="formula">x(y + z) = xy + xz and (y + z)x = yx + zx.</p>
+
+    <p>
+      Proof. Since y + z = [(c + e, d + f)], the forward count in
+      x(y + z) is a(c + e) + b(d + f). Expand using
+      <a href="./multiplication-laws.html#theorem-22">Theorem 22</a>.
+      Then use <a href="./addition-laws.html#theorem-16">Theorem 16</a> and
+      <a href="./addition-laws.html#theorem-17">Theorem 17</a> to group
+      the terms from xy together and the terms from xz together:
+    </p>
+
+    <p class="formula">
+      a(c + e) + b(d + f) = (ac + ae) + (bd + bf) = (ac + bd) + (ae + bf).
+    </p>
+
+    <p>The backward count works in the same way:</p>
+
+    <p class="formula">
+      b(c + e) + a(d + f) = (bc + be) + (ad + af) = (bc + ad) + (be + af).
+    </p>
+
+    <p>
+      The product xy has record (ac + bd, bc + ad), and xz has
+      record (ae + bf, be + af). The two counts we just obtained
+      are exactly the entries of their sum. Thus x(y + z) = xy + xz.
+      By <a href="#theorem-31">Theorem 31</a>, we can put the factor
+      x on the other side:
+    </p>
+
+    <p class="formula">(y + z)x = x(y + z) = xy + xz = yx + zx.</p>
+
+    <h2 id="theorem-33">Theorem 33: Integer Multiplication Is Associative</h2>
+
+    <p class="formula">(xy)z = x(yz).</p>
+
+    <p>
+      Proof. First compute the inner products. For the left side
+      we need xy, and for the right side we need yz:
+    </p>
+
+    <p class="formula">xy = [(ac + bd, bc + ad)].</p>
+    <p class="formula">yz = [(ce + df, de + cf)].</p>
+
+    <p>
+      Compare the forward counts first. For (xy)z, multiply the forward
+      count of xy by e and its backward count by f, then add.
+      For x(yz), use a and b with the two counts of yz.
+      Expand by <a href="./multiplication-laws.html#theorem-20">Theorem 20</a>
+      and <a href="./multiplication-laws.html#theorem-22">Theorem 22</a>.
+      In these counts, ace abbreviates (ac)e = a(ce) by the natural-number
+      law, <a href="./multiplication-laws.html#theorem-23">Theorem 23</a>.
+    </p>
+
+    <p class="formula">
+      Forward in (xy)z: (ac + bd)e + (bc + ad)f = ace + bde + bcf + adf.
+    </p>
+
+    <p class="formula">
+      Forward in x(yz): a(ce + df) + b(de + cf) = ace + adf + bde + bcf.
+    </p>
+
+    <p>
+      These sums have the same four terms. Moving adf from the last
+      position to the second turns the first sum into the second.
+      Now compare the backward counts:
+    </p>
+
+    <p class="formula">
+      Backward in (xy)z: (bc + ad)e + (ac + bd)f = bce + ade + acf + bdf.
+    </p>
+
+    <p class="formula">
+      Backward in x(yz): b(ce + df) + a(de + cf) = bce + bdf + ade + acf.
+    </p>
+
+    <p>
+      This time, move bdf from the last position to the second.
+      Both rearrangements use <a href="./addition-laws.html#theorem-16">Theorem 16</a>
+      and <a href="./addition-laws.html#theorem-17">Theorem 17</a>
+      on natural numbers. The records agree in both entries, proving (xy)z = x(yz).
+    </p>
+
+  </article>
+</body>
+</html>
